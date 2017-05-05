@@ -1,0 +1,40 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+<!-- sections -->
+<section ng-controller="ClogController as login">
+<div class="container text-center">
+    <h1>Company Login</h1>
+<form ng-submit="login.submit()" name="formData" ng-model="login.formData" >
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="email"  name="email" ng-model="login.formData.email" placeholder="Email" required>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="password"  name="password" ng-model="login.formData.password" placeholder="Password" required>
+</div>
+
+    <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
+        <span class="help-inline" ng-bind="login.error"></span>
+    </div>
+
+<div class="form-group col-xs-4 col-xs-offset-4">
+<input class="" value="Login" type="submit">    
+</form>
+
+
+</div> 
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

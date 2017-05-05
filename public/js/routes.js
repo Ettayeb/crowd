@@ -4,23 +4,49 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
 
         // home page
         .when('/', {
-            templateUrl: 'views/frontend/home.html',
-            controller: 'HomeController',
-            requireLogin : false
-
+            templateUrl: 'views/index.html',
+            requireLogin : false,
+            title : 'Home'
         })
 
         // admin registers
-        .when('/backend/register', {
-            templateUrl: '/views/backend/private/register.html',
-            controller: 'RegisterController',
-            requireLogin: false
+        .when('/user/register', {
+            templateUrl: 'views/user/register.html',
+            requireUserLogin: false,
+            requireCompanyLogin: false,
+            title : 'Candidate registration'
         })
-        .when('/entreprise/login', {
-            templateUrl: '/views/backend/login.html',
-            controller: 'LoginController',
-            requireLogin: false
+        .when('/company/register', {
+            templateUrl: '/views/company/register.html',
+            requireUserLogin: false,
+            requireCompanyLogin: false,
+            title : 'Company registration'
+
         })        
+        .when('/user/', {
+            templateUrl: 'views/user/index.html',
+            requireUserLogin: true,
+            requireCompanyLogin: false,
+            title : 'Candidate Home'
+        })
+        .when('/user/login', {
+            templateUrl: 'views/user/login.html',
+            requireUserLogin: false,
+            requireCompanyLogin: false,
+            title : 'Candidate Login'
+        })
+        .when('/company/login', {
+            templateUrl: '/views/company/login.html',
+            requireUserLogin: false,
+            requireCompanyLogin: false,
+            title : 'Company Login'
+        })
+        .when('/company/', {
+            templateUrl: '/views/company/index.html',
+            requireUserLogin: false,
+            requireCompanyLogin: true,
+            title : 'Company Home'
+        })
         .when('/entreprise/logout', {
             controller: 'LogOutController',
             templateUrl: '/views/backend/private/logout.html',            
@@ -28,7 +54,6 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
         })        
         .when('/entreprise', {
             templateUrl: '/views/backend/private/index.html',
-            controller: 'IndexController',
             requireLogin: true
         })        
         .when('/entreprise/categories', {
@@ -42,7 +67,6 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
         })        
         .when('/entreprise/categories/remove/:id', {
             templateUrl: '/views/backend/private/category/remove.html',
-            controller: 'RemoveCategory',
             requireLogin: true
         })        
         .when('/entreprise/categories/edit/:id', {
@@ -53,12 +77,10 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
         // articles routes
         .when('/entreprise/articles', {
             templateUrl: '/views/backend/private/article/index.html',
-            controller: 'IndexArtController',
             requireLogin: true
         })
         .when('/entreprise/articles/add', {
             templateUrl: '/views/backend/private/article/add.html',
-            controller: 'AddArticle',
             requireLogin: true
         })
         .when('/entreprise/files', {
@@ -67,29 +89,44 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
         })
         .when('/entreprise/files/remove/:id', {
             templateUrl: '/views/backend/private/files/index.html',
-            controller : 'RemoveFile' ,
             requireLogin: true
         })
-        .otherwise('/');
-
-        
-
-
-        
+        .otherwise('/');    
         
     $locationProvider.html5Mode(true);
 
-}])
+})
     // prevent anyone not connected from entering to the admin panel
 
-    .run(function($rootScope, $location , $route , authentication) {
+    .run(function($rootScope, $location , $route , userAuth,companyAuth) {
         $rootScope.$on( "$locationChangeStart", function(event, next, current) {
-            if ( $route.routes[$location.path()].requireLogin  && !authentication.isLoggedIn() )
+                console.log(current);
+
+            if ( ( $route.routes[$location.path()].requireUserLogin  && !userAuth.isLoggedIn() ) || ( $route.routes[$location.path()].requireCompanyLogin  && !companyAuth.isLoggedIn() )  )
             {
+                if(current.indexOf('company') !== -1 ) {
                 event.preventDefault();
-                $location.path('/backend/login');
+                $location.path('/company/login');
+                }
+                else if (current.indexOf('user') !== -1 ) {
+                event.preventDefault();
+                $location.path('/user/login');
+                }
+                else {
+                event.preventDefault();
+                $location.path('/');
                     
+                }
+                
             }
     
         });
+        
+        $rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
+    //Change page title, based on Route information
+    $rootScope.title = $route.current.title;
+  });
+        
+        
+        
 });

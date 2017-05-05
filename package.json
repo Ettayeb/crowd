@@ -4,7 +4,16 @@
   "description": "Crowdsourcing Platform",
   "main": "server.js",
   "dependencies": {
-    "expressjs": "^1.0.1"
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "crypto": "0.0.3",
+    "express-jwt": "^5.3.0",
+    "expressjs": "^1.0.1",
+    "jsonwebtoken": "^7.4.0",
+    "method-override": "^2.3.8",
+    "mongoose": "^4.9.6",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {

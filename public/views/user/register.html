@@ -1,0 +1,48 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+
+<!-- sections -->
+<section ng-controller="UregController as register">
+<div class="container text-center">
+    <h1>Candidate registration</h1>
+<form ng-submit="register.submit()" name="formData" ng-model="register.formData" >
+    	
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="text"  name="name" ng-model="register.formData.name" placeholder="Full name" required>
+</div>
+    <div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="email"  name="email" ng-model="register.formData.email" placeholder="Email" required>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="password"  name="password" ng-model="register.formData.password" placeholder="Password" required>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="password" name="password_verif" ng-model="register.formData.password_verif" placeholder="Password verification" required>
+</div>
+
+    <div class="control-group col-xs-6 col-xs-offset-3 text-danger" ng-show="register.error" >
+        <span class="help-inline">{{register.error}}</span>
+    </div>
+
+<div class="form-group col-xs-4 col-xs-offset-4">
+<input class="" value="Register" type="submit">    
+</form>
+
+
+</div> 
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

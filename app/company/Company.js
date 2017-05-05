@@ -1,22 +1,26 @@
 var mongoose = require('mongoose');
+var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
+mongoose.Promise = require('bluebird');
+
 var Schema = mongoose.Schema ;
 
 var CompanySchema = new Schema({
    email : {type : String , required : true ,  unique : true},
    name : {type : String , required : true},
-   activity : {type : String , required : true},
-   category : {type : String , required : true},
-   size : {type : String , required : true},
-   country : {type : String , required : true},
-   region : {type : String , required : true},
-   adress : {type : String , required : true},
-   country_code : {type : String , required : true},
-   phone : {type : String , required : true},
+   activity : {type : String , required : false},
+   category : {type : String , required : false},
+   size : {type : String , required : false},
+   country : {type : String , required : false},
+   region : {type : String , required : false},
+   adress : {type : String , required : false},
+   country_code : {type : String , required : false},
+   phone : {type : String , required : false},
 
    
    password : {type : String , required : true},
    salt : {type : String , required : true},
-   description : {type : String , required : true},
+   description : {type : String , required : false},
    created_at : Date ,
    updated_at : Date
         
@@ -24,11 +28,11 @@ var CompanySchema = new Schema({
 
 CompanySchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
-    this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');  
+    this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64 , 'sha1').toString('hex');  
     };
 CompanySchema.methods.validPassword = function(password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-    return this.hash === hash;
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64,'sha1').toString('hex');
+    return this.password === hash;
 };
 CompanySchema.methods.generateJwt = function() {
     var expiry = new Date();
@@ -54,6 +58,6 @@ CompanySchema.pre("save" , function(next){
 });
 
 
-var User = mongoose.model("Company" , CompanySchema);
+var Company = mongoose.model("Company" , CompanySchema);
 
 module.exports = Company;

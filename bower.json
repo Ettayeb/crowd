@@ -1,0 +1,25 @@
+{
+  "name": "crowd",
+  "description": "Crowdsourcing Platform",
+  "main": "server.js",
+  "authors": [
+    "Mohamed Ettayeb"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Ettayeb/crowd",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.6.3",
+    "angular": "angularjs#^1.6.3",
+    "angular-load": "^0.4.1",
+    "angular-bootstrap": "^2.5.0",
+    "international-phone-number": "^0.0.16"
+  }
+}

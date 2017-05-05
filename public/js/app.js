@@ -1,1 +1,1 @@
-angular.module("crowdsourcing" , ["ngRoute" , "routes"]);
+angular.module("crowd" , ["ngRoute" , "ui.bootstrap"  ,"routes" , "angularLoad" , "UserCtrl" , "UserService","CompanyCtrl" , "CompanyService"]);
