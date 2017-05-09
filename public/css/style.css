@@ -419,15 +419,15 @@ header {
 
 /* __________ Menu __________ */
 .menu_block {
-	position:fixed;
-	z-index:9999;
+	position:relative;
+	z-index:0;
 	left:0;
 	top:0;
 	right:0;
 	height:80px;
 	width:100%;
 	background-color:#fff;
-	box-shadow:0 2px 3px rgba(0,0,0,0.1);
+	/*box-shadow:0 2px 3px rgba(0,0,0,0.1); */
 }
 
 .navmenu ul li {

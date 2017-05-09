@@ -18,9 +18,6 @@ module.exports = function(app) {
 require('./user/route')(app,mongoose,userAuth,userAuth);
 require('./company/route')(app,mongoose,companyAuth);
 
-
-
-
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);

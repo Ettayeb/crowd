@@ -1,4 +1,36 @@
 var passport = require('passport');
+var multer  =   require('multer');
+var storage =   multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './public/uploads');
+  },
+  filename: function (req, file, callback) {
+   var fname = Date.now()+file.originalname;
+     var offer = new Offer();
+  offer.title = req.body.title;
+  offer.type = req.body.type;
+  offer._company = req.body._company;
+  offer.file = fname;
+  offer.ended_at = req.body.ended_at;
+
+  offer.save(function(err) {
+   if (err) {
+    res.status(406);
+    return res.json({
+      "message" : "There is a problem contact the webmaster please"
+    });
+
+      
+   }
+  });
+
+    callback(null,fname);
+  }
+});
+
+var upload = multer({ storage : storage}).single('file');
+
+
 var Company = require('./Company');
 var Offer = require('./Offer');
 
@@ -27,17 +59,16 @@ module.exports.profileRead =  function (req, res) {
 module.exports.privateoffers =  function (req, res) {
 
   // If no company ID exists in the JWT return a 401
-   console.log(req);
 
   if (!req.user._id) {
      res.status(401).json({
       "message" : "UnauthorizedError: private data"
     });
   } else {
-   console.log(req);
     // Otherwise continue
     Offer
-      .findOne({ _company : req.user._id})
+      .find({ _company : req.user._id})
+      .populate('_company')
       .exec(function(err, offers) {
         console.log('we are here !!!');
         res.status(200).json(offers);
@@ -94,3 +125,31 @@ module.exports.login = function(req, res) {
   })(req, res);
 
 };
+
+
+// offers routes
+
+module.exports.addoffer = function(req, res) {
+ 
+ 
+        upload(req,res,function(err) {
+        if(err) {
+         res.status(406);
+    return res.json({
+      "message" : "Vefiry your file please"
+    });
+
+        }
+         res.status(200);
+    return res.json({
+      "message" : "Success upload"
+    });
+        
+
+
+
+    });    
+  
+
+};
+

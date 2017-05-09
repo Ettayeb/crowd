@@ -47,6 +47,20 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
             requireCompanyLogin: true,
             title : 'Company Home'
         })
+        .when('/company/offer/add', {
+            templateUrl: '/views/offer/add.html',
+            requireUserLogin: false,
+            requireCompanyLogin: true,
+            title : 'Add Offer'
+        })
+        .when('/company/offer/:id', {
+            templateUrl: '/views/offer/index.html',
+            requireUserLogin: false,
+            requireCompanyLogin: true,
+            title : 'View Offer'
+        })        
+
+
         .when('/entreprise/logout', {
             controller: 'LogOutController',
             templateUrl: '/views/backend/private/logout.html',            
@@ -91,7 +105,7 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
             templateUrl: '/views/backend/private/files/index.html',
             requireLogin: true
         })
-        .otherwise('/');    
+       // .otherwise('/');    
         
     $locationProvider.html5Mode(true);
 
@@ -100,8 +114,7 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
 
     .run(function($rootScope, $location , $route , userAuth,companyAuth) {
         $rootScope.$on( "$locationChangeStart", function(event, next, current) {
-                console.log(current);
-
+        if($route.routes[$location.path()]) {
             if ( ( $route.routes[$location.path()].requireUserLogin  && !userAuth.isLoggedIn() ) || ( $route.routes[$location.path()].requireCompanyLogin  && !companyAuth.isLoggedIn() )  )
             {
                 if(current.indexOf('company') !== -1 ) {
@@ -117,16 +130,24 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
                 $location.path('/');
                     
                 }
-                
+            } 
             }
     
         });
         
         $rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
     //Change page title, based on Route information
+    if ($route.current)
     $rootScope.title = $route.current.title;
-  });
+  })
         
         
-        
-});
+})
+    .filter('start', function () {
+    return function (input, start) {
+        if (!input || !input.length) { return; }
+
+        start = +start;
+        return input.slice(start);
+    };
+});     

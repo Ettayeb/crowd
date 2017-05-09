@@ -6,13 +6,13 @@
 		<!-- HEADER -->
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
-<section class="one-section" ng-controller="CindController as index">
+<section class="one-section" ng-controller="CindController as vm">
 <div class="container text-center">
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
-        <span class="help-inline" ng-bind="index.error"></span>
+        <span class="help-inline" ng-bind="vm.error"></span>
     </div>
 
-<table class="table" ng-show="index.offers">
+<table class="table" ng-show="vm.offers">
   <thead>
     <tr>
       <th>N°</th>
@@ -20,23 +20,28 @@
       <th>Type</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th>File</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="offer in index.offers">
+    <tr ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
       <th scope="row">{{$index}}</th>
-      <td>{{offer.title}}</td>
+      <td><a ng-href="/company/offer/{{offer._id}}">{{offer.title}}</a></td>
       <td>{{offer.type}}</td>
-      <td>{{offer.created_at}}</td>
-      <td>{{offer.ended_at}}</td>
+      <td>{{offer.created_at | date:'medium'}}</td>
+      <td>{{offer.ended_at | date:'medium'}}</td>
+	  <td><a ng-href="/uploads/{{offer.file}}" target="_blank">File</a></td>
+
     </tr>
   </tbody>
 </table>
-<div class="row text-center" ng-hide="index.offers">
+            <pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
+                        class="pagination-sm"></pagination>
+<div class="row text-center" ng-hide="vm.offers">
     <div class="col-12">
 <h3 class="text-center">You dont have any offer !</h3>
     
-    <a type="button" class="btn btn-primary" href="/company/create">Add Offer</a>
+    <a type="button" class="btn btn-primary" href="/company/offer/add">Add Offer</a>
     </div>
 </div>
 

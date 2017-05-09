@@ -38,13 +38,12 @@ var vm = this;
 var vm = this;
 companyAuth.getoffers()
         .then( function onSuccess(response){
-            vm.offers = response.data.offers;
-            
+            vm.offers = response.data;
+            vm.currentPage = 1; // keeps track of the current page
+            vm.pageSize = 2; // holds the number of items per page
             },function onError(response){
-            vm.error = response.data.message;
-            
-            } );   
-
+            vm.error = response.data.message;            
+            } );
 })
 .controller('CregController', function(companyAuth, $location) {
 
@@ -87,23 +86,44 @@ this.submit = function ()
     };
 
 })
-.controller('CategoryController', function($scope , category ) {
-
+.controller('OaddController', function(Upload , companyAuth , $location) {
+    var vm = this;
     // something beautiful will be here xD
-    $scope.submit = function() {
-        var c = $scope.category ;
-        category.add(c)
-            .error(function(err){
-                //debug
-                $scope.error = err.message;
-                
-            })
-            .then(function(res){
-                //debug
-                $scope.success = res.data.message ;
-            });
+        vm.formData = {};
+        vm.formData._company = companyAuth.currentCompany().id;    
+      vm.options = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+  vm.popup = {
+    opened: false
+  };
+            vm.datepickerOptions = {
+                format: 'yyyy-mm-dd',
+            };
+              vm.open = function() {
+    vm.popup.opened = true;
+  };
 
-    };
+    vm.submit = function(){
+        Upload.upload({
+            url: '/api/offer',
+            data: vm.formData,
+            headers: {'Authorization': 'Bearer '+ companyAuth.getToken()}, // only for html5
+        }).then(function (resp) {
+            console.log('Success ');
+            $location.path('/company/');
+        }, function (resp) {
+            console.log('Error status: ');
+        }, function (evt) {
+            progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+        
+        };
+  
+  
     
 })
 .controller('IndexCatController', function($scope , category ) {
