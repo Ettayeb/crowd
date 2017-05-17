@@ -2,12 +2,24 @@
 /*	GENERAL STYLING
 /*-----------------------------------------------------------------------------------*/
 
-
+          .some-pdf-container {
+            width: 100%;
+            height: 600px;
+          }
 .one-section{
 	width:100%;
-	
+	min-height: 350px;
 }
 
+.carousel-home {
+	width: 100%;
+}
+
+
+.preloader {
+    padding: 50px;
+    background: url('../images/preloader.gif') no-repeat 50% 50% transparent;
+}
 
 
 
@@ -240,7 +252,7 @@ body {
 	color: #666;
 	background-color:#fff;
 }
-#page {overflow-x:hidden; position:relative; z-index:5;}
+#page {position:relative; z-index:5;}
 
 .preloader_hide {opacity:0;}
 #preloader {position:fixed; left:50%; top:50%; width:32px; height:32px; margin:-16px 0 0 -16px; display:block;}
@@ -1565,45 +1577,6 @@ input[type="color"]:focus {
 	color:#333;
 }
 .blog_post .read_more_btn:hover {color:#666;}
-
-
-
-/* __________ Pagination __________ */
-.pagination {
-	display:block;
-	margin:0 0 50px;
-	padding:0;
-	border-radius:0;
-}
-.pagination li {
-	float:left;
-	width:68px;
-	height:70px;
-}
-.pagination li a {
-	float:none;
-	display:block;
-	margin:0;
-	padding:0;
-	border:0;
-	font-weight:900;
-	text-align:center;
-	line-height:68px;
-	font-size:20px;
-	color:#999;
-}
-.pagination li a:focus,
-.pagination li a:hover {
-	background:none !important;
-	color:#333 !important;
-}
-.pagination li.active a {
-	border:2px solid #333 !Important;
-	font-size:26px;
-	color:#333 !important;
-	background:none !important;
-}
-
 
 
 

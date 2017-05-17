@@ -6,16 +6,8 @@ angular.module('FrontendCtrl', [])
 .controller('FindController', function(frontend , $location) {
 
 var vm = this;
-            frontend.alloffers()
-                .then(function onSuccess(response){
-                vm.offers = response.data;
-                  vm.currentPage = 1; // keeps track of the current page
-               vm.pageSize = 2; // holds the number of items per page
+vm.loaded = false;
 
-                },
-                function onError(response){
-                   vm.error = response.data.message; 
-                });
 vm.slides = [];
 var currIndex = 0;
 vm.myInterval = 5000;
@@ -28,7 +20,20 @@ vm.slides.push({
     MainText: 'BOOTSTRAP CAROUSEL MAKER',
     SubText: 'some text'
 });
-                
+
+frontend.alloffers()
+    .then(function onSuccess(response){
+    vm.offers = response.data;
+      vm.currentPage = 1; // keeps track of the current page
+   vm.pageSize = 2; // holds the number of items per page
+   vm.loaded = true;
+
+
+    },
+    function onError(response){
+       vm.error = response.data.message; 
+    });
+
 
 
 
@@ -59,6 +64,8 @@ console.log(vm.app);
             frontend.singleoffer($routeParams.id)
                 .then(function onSuccess(response){
                 vm.offer = response.data;
+                vm.file = "/uploads/" + vm.offer.file;
+                console.log(vm.file);
                   if(vm.offer.type == 'vote') {
                      frontend.getapplies($routeParams.id)
                      .then(function onSuccess(response){

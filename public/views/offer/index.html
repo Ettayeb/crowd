@@ -8,20 +8,28 @@
 <!-- sections -->
 <section class="one-section" ng-controller="OindController as vm">
   <div ng-repeat="alert in vm.alerts" uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
-<div class="container text-center">
-      <a ng-show="vm.userloggedin && !vm.app" ng-click="vm.open()"><h3>Apply</h3></a>
-      <h3><a ng-href="/offer/{{vm.offer._id}}">{{vm.offer.title}}</a></h3>
-      <h3>{{vm.offer.type}}</h3>
-      <h3>{{vm.offer.created_at | date:'medium'}}</h3>
-      <h3>{{vm.offer.ended_at | date:'medium'}}</h3>
-	  <h3><a ng-href="/uploads/{{vm.offer.file}}" target="_blank">File</a></h3>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<h3><b> Offer title </b> : {{vm.offer.title}}</h3>
+			<h3> <b> Offer type </b> : {{vm.offer.type}}</h3>
+			<h3> <b> Offer start date </b> : {{vm.offer.created_at | date:'medium'}}</h3>
+			<h3> <b> Offer end date </b> : {{vm.offer.ended_at | date:'medium'}}</h3>
+		</div>
+		<div class="col-md-3">
+			<a class="btn btn-primary pull-right"  ng-click="vm.open()">Apply</a>			
+		</div>
+		
+		
+	</div> <div class='some-pdf-container'>
+	            <pdfjs-viewer src="{{vm.file}}"></pdfjs-viewer>
+			</div>
 <div class="row text-center" ng-hide="vm.offer">
     <div class="col-12">
 <h3 class="text-center">{{vm.error}}</h3>
     </div>
 </div>
-
-
+<h4 class="text-center"> Applies List :</h4>
 <table class="table" ng-show="vm.applies">
   <thead>
     <tr>
@@ -40,9 +48,10 @@
 
     </tr>
   </tbody>
+
 </table>
             <pagination uib-pagination total-items="vm.applies.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
-                        class="pagination-sm"></pagination>
+                        class="pagination-sm text-center"></pagination>
 
 
 

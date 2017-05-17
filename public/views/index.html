@@ -1,12 +1,18 @@
 <div class="">
 
+
+
 	<!-- PAGE -->
 	<div id="page">
 	
 		<!-- HEADER -->
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
-<section class="one-section" ng-controller="FindController as vm">
+<section class="one-section" ng-controller="FindController as vm" >
+<div ng-hide="vm.loaded" class="preloader">
+</div>
+
+<div ng-hide="!vm.loaded">
 <div class="carousel-home" uib-carousel active="active" interval="vm.myInterval" nowrap="vm.noWrapSlides">
     <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id" >
         <img ng-src=" {{slide.image}}" style="margin: auto;" >
@@ -16,18 +22,13 @@
         </div>
 </div>
 </div>
-
-
-
-
-
 <div class="container">
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
         <span class="help-inline" ng-bind="vm.error"></span>
     </div>
 
 
-<div id="products" class="row list-group" ng-show="vm.offers">
+<div id="products" class="row list-group" ng-show="vm.offers.length > 0">
                      <div class="item list-group-item col-xs-4 col-lg-4" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize"> 
                      <div class="thumbnail">
                          <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
@@ -52,13 +53,10 @@
 						 </div>
 				</div>
 		</div>
-</div>
-
-
-
-
 <pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
 class="pagination-sm"></pagination>
+</div>
+
 
 <div class="row text-center" ng-hide="vm.offers">
     <div class="col-12">
@@ -66,6 +64,7 @@ class="pagination-sm"></pagination>
     </div>
 </div>
 
+</div>
 </div> 
     
 </section>
