@@ -77,6 +77,36 @@ module.exports.privateoffers =  function (req, res) {
 
 };
 
+module.exports.alloffers =  function (req, res) {
+
+date = new Date();
+    Offer
+      .find({ended_at : { $gt : date} })
+      .populate('_company')
+      .exec(function(err, offers) {
+        if (err)
+        return res.status(406).json({'message' : 'Error : Contact the webmaster please .'});
+
+        res.status(200).json(offers);
+      });
+
+
+};
+module.exports.singleoffer =  function (req, res) {
+
+    Offer
+      .findById({_id : req.params.id})
+      .populate('_company')
+      .exec(function(err, offer) {
+        if (err)
+        return res.status(406).json({'message' : 'Error : Contact the webmaster please .'});
+
+        res.status(200).json(offer);
+      });
+
+
+};
+
 
 module.exports.register = function(req, res) {
   var company = new Company();
@@ -102,7 +132,7 @@ module.exports.register = function(req, res) {
 
 module.exports.login = function(req, res) {
 
-  passport.authenticate('local', function(err, company, info){
+  passport.authenticate('company-local', function(err, company, info){
     var token;
 
     // If Passport throws/catches an error

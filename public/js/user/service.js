@@ -57,7 +57,10 @@ angular.module('UserService', []).factory('userAuth', function ($http, $window, 
         console.log(data);
       });
     };
-    
+    applied = function(id) {
+      return $http.get('/api/applied/' + id) ;
+      
+    };
     
     return {
       currentUser : currentUser,
@@ -66,7 +69,8 @@ angular.module('UserService', []).factory('userAuth', function ($http, $window, 
       isLoggedIn : isLoggedIn,
       logout : logout,
       register : register,
-      login : login
+      login : login,
+      applied : applied
       
       };
  

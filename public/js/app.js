@@ -1,1 +1,1 @@
-angular.module("crowd" , ["ngRoute" , "ui.bootstrap" ,"routes" , "angularLoad", "ngFileUpload" , "UserCtrl" , "UserService","CompanyCtrl" , "CompanyService"]);
+angular.module("crowd" , ["ngRoute" , "ui.bootstrap" ,"routes" , "angularLoad", "ngFileUpload" , "UserCtrl" , "UserService","CompanyCtrl" , "CompanyService","FrontendCtrl" , "FrontendService"]);

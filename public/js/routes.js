@@ -5,7 +5,8 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
         // home page
         .when('/', {
             templateUrl: 'views/index.html',
-            requireLogin : false,
+            requireUserLogin: false,
+            requireCompanyLogin: false,
             title : 'Home'
         })
 
@@ -48,7 +49,7 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
             title : 'Company Home'
         })
         .when('/company/offer/add', {
-            templateUrl: '/views/offer/add.html',
+            templateUrl: '/views/company/offer/add.html',
             requireUserLogin: false,
             requireCompanyLogin: true,
             title : 'Add Offer'
@@ -58,8 +59,14 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
             requireUserLogin: false,
             requireCompanyLogin: true,
             title : 'View Offer'
-        })        
+        })
 
+        .when('/offer/:id', {
+            templateUrl: '/views/offer/index.html',
+            requireUserLogin: false,
+            requireCompanyLogin: false,
+            title : 'Offer'
+        })
 
         .when('/entreprise/logout', {
             controller: 'LogOutController',

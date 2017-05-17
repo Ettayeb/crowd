@@ -1,0 +1,15 @@
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Apply</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <form ng-model="vm.formData">
+<div class="form-group col-xs-6 col-xs-offset-3">
+      <input type="file" ngf-select ng-model="vm.formData.file" name="file"    
+             accept="application/pdf" required>
+</div
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="vm.submit()">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+        </div>

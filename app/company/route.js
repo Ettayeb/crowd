@@ -12,4 +12,12 @@ app.get('/api/privateoffers',companyAuth, controller.privateoffers);
 app.post('/api/offer', companyAuth , controller.addoffer);
 
 
+
+app.get('/api/offers' , controller.alloffers);
+app.get('/api/offer/:id' , controller.singleoffer);
+
+
+
+
+
 };

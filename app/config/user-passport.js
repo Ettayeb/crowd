@@ -4,7 +4,7 @@ module.exports = function(passport , User){
 
 var LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy({
+passport.use('user-local' ,new LocalStrategy({
     usernameField: 'email'
   },
   function(email, password, done) {

@@ -1,0 +1,64 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+<!-- sections -->
+<section class="one-section" ng-controller="OindController as vm">
+  <div ng-repeat="alert in vm.alerts" uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
+<div class="container text-center">
+      <a ng-show="vm.userloggedin && !vm.app" ng-click="vm.open()"><h3>Apply</h3></a>
+      <h3><a ng-href="/offer/{{vm.offer._id}}">{{vm.offer.title}}</a></h3>
+      <h3>{{vm.offer.type}}</h3>
+      <h3>{{vm.offer.created_at | date:'medium'}}</h3>
+      <h3>{{vm.offer.ended_at | date:'medium'}}</h3>
+	  <h3><a ng-href="/uploads/{{vm.offer.file}}" target="_blank">File</a></h3>
+<div class="row text-center" ng-hide="vm.offer">
+    <div class="col-12">
+<h3 class="text-center">{{vm.error}}</h3>
+    </div>
+</div>
+
+
+<table class="table" ng-show="vm.applies">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>User</th>
+      <th>Date</th>
+      <th>File</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="apply in vm.applies | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
+      <th scope="row">{{$index}}</th>
+      <td><a ng-href="">{{apply._user.name}}</a></td>
+      <td>{{apply.created_at | date:'medium'}}</td>
+	  <td><a ng-href="/uploads/apply/{{apply.file}}" target="_blank">File</a></td>
+
+    </tr>
+  </tbody>
+</table>
+            <pagination uib-pagination total-items="vm.applies.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
+                        class="pagination-sm"></pagination>
+
+
+
+
+
+
+
+</div> 
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

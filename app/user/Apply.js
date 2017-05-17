@@ -6,11 +6,13 @@ var Schema = mongoose.Schema ;
 var ApplySchema = new Schema({
    _offer : {type : mongoose.Schema.Types.ObjectId, ref: 'Offer'},
    _user : {type : mongoose.Schema.Types.ObjectId, ref: 'User'},
-   type : {type : String },
    file : {type : String },
+   votes : {type : Number },
    created_at : Date ,    
     
 });
+
+
 
 
 ApplySchema.pre("save" , function(next){
