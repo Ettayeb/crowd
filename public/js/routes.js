@@ -30,6 +30,12 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
             requireCompanyLogin: false,
             title : 'Candidate Home'
         })
+        .when('/user/profile', {
+            templateUrl: 'views/user/profile.html',
+            requireUserLogin: true,
+            requireCompanyLogin: false,
+            title : 'Candidate Profile'
+        })
         .when('/user/login', {
             templateUrl: 'views/user/login.html',
             requireUserLogin: false,
@@ -41,6 +47,12 @@ angular.module("routes", []).config( function($routeProvider, $locationProvider)
             requireUserLogin: false,
             requireCompanyLogin: false,
             title : 'Company Login'
+        })
+        .when('/company/profile', {
+            templateUrl: 'views/company/profile.html',
+            requireUserLogin: false,
+            requireCompanyLogin: true,
+            title : 'Candidate Profile'
         })
         .when('/company/', {
             templateUrl: '/views/company/index.html',

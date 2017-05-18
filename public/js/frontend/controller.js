@@ -3,6 +3,31 @@ angular.module('FrontendCtrl', [])
 
 // controllers are here
 
+
+.controller('navCtrl', function(frontend , $location , userAuth , companyAuth) {
+
+var vm = this;
+
+vm.userloggedin = userAuth.isLoggedIn();
+vm.companyloggedin = companyAuth.isLoggedIn();
+
+vm.companylogout = function() {
+  
+  companyAuth.logout();
+  $location.path('/');
+    
+};
+
+vm.userlogout = function() {
+  
+  userAuth.logout();
+  $location.path('/');
+    
+};
+
+
+
+})
 .controller('FindController', function(frontend , $location) {
 
 var vm = this;
@@ -49,6 +74,7 @@ vm.closeAlert = function(index) {
 
 vm.userloggedin = userAuth.isLoggedIn();
 
+if (vm.userloggedin) {
 userAuth.applied(userAuth.currentUser().id).then(function onSuccess(response){
 
                 vm.app =  1 ;
@@ -57,14 +83,14 @@ userAuth.applied(userAuth.currentUser().id).then(function onSuccess(response){
             function onError(){
 
         vm.app = 0;
-            }
-   );
-
+            });
+}
 console.log(vm.app);
             frontend.singleoffer($routeParams.id)
                 .then(function onSuccess(response){
                 vm.offer = response.data;
                 vm.file = "/uploads/" + vm.offer.file;
+                vm.loaded = true;
                 console.log(vm.file);
                   if(vm.offer.type == 'vote') {
                      frontend.getapplies($routeParams.id)

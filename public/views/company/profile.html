@@ -1,0 +1,139 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+<!-- sections -->
+<section class="one-section" ng-controller="CprofileController as vm">
+
+<div class="container">
+	
+	<div class="row">
+		
+		
+<form ng-model="vm.formData" class="tab-form-demo form">
+    <uib-tabset active="activeForm" justified="true">
+      <uib-tab index="0" heading="Profile informations" class="spacing" >
+<div class="margin-top">
+    <div class="row">
+<div class="form-group col-md-4">
+    <input  type="text"  name="name" ng-model="vm.formData.name" placeholder="Company Name" required>
+</div>
+<div class="form-group col-md-4">
+    <input  type="text"  name="email" ng-model="vm.formData.email" placeholder="Email" required>
+</div>
+          
+<div class="form-group col-md-4">
+<select ng-model="vm.formData.activity" ng-init="vm.formData.activity='0'" required>
+    <option value="0">Choose your company sector...</option>
+    <option value="1">Accountancy, banking and finance</option>
+    <option value="2" selected="selected">Business, consulting and management</option>
+    <option value="3">Charity and voluntary work</option>
+    <option value="4">Creative arts and design</option>
+    <option value="5">Energy and utilities</option>
+    <option value="6">Engineering and manufacturing</option>
+    <option value="7">Environment and agriculture</option>
+    <option value="8">Healthcare</option>
+    <option value="9">Hospitality and events management</option>
+    <option value="10">Information technology</option>
+    <option value="11">Law</option>
+    <option value="12">Law enforcement and security</option>
+    <option value="13">Leisure, sport and tourism</option>
+    <option value="14">Marketing, advertising and PR</option>
+    <option value="15">Media and internet</option>
+    <option value="16">Property and construction</option>
+    <option value="17">Public services and administration</option>
+    <option value="18">Recruitment and HR</option>
+    <option value="19">Retail</option>
+    <option value="20">Sales</option>
+    <option value="21">Science and pharmaceuticals</option>
+    <option value="22">Social care</option>
+    <option value="23">Teacher training and education</option>
+    <option value="24">Transport and logistics</option>
+    
+</select>
+
+</div>
+          
+          
+</div>      
+
+    <div class="row">
+<div class="form-group col-md-4">
+<select ng-model="vm.formData.category" ng-init="vm.formData.category='0'" required>
+    <option value="0">Choose your company category...</option>
+    <option value="1">Local private company</option>
+    <option value="2">Foreign Private Company</option>
+    <option value="3">Public function</option>
+    <option value="4">Institution (administration)</option>    
+</select>
+
+</div>
+<div class="form-group col-md-4">
+<select ng-model="vm.formData.size" ng-init="vm.formData.size='0'" required>
+    <option value="0">Choose your company size...</option>
+    <option value="1">Less than 20</option>
+    <option value="2">Between 20 et 100</option>
+    <option value="3">Between 100 et 200</option>
+    <option value="4">Between 200 et 500</option>    
+    <option value="5">More than 500</option>    
+</select>
+
+</div>
+<div class="form-group col-md-4">
+<select ng-model="vm.formData.country" pvp-country-picker>    
+    <option value="0">Choose your company country...</option>
+</select>
+</div>
+                    
+</div>
+    <div class="row">
+<div class="form-group col-md-4">
+<input type="text" ng-model="vm.formData.phone" name="phone" placeholder="Phone Number" required>
+</div>
+<div class="form-group col-md-4">
+<textarea ng-model="vm.formData.adress" placeholder="Company Adress"></textarea>
+</div>
+                    
+</div>      
+
+<div>
+    
+    
+</div>
+
+
+</div>     
+          
+          
+          
+          
+      </uib-tab>
+      <uib-tab index="1" heading="Account Settings" >
+        Some Tab Content
+      </uib-tab>
+    </uib-tabset>
+  </form>
+		
+		
+		
+	</div> 
+
+
+
+
+</div> 
+    	
+</section>
+
+
+<!-- end sections -->
+	</div>
+
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

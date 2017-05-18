@@ -7,23 +7,31 @@
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
 <section class="one-section" ng-controller="OindController as vm">
-  <div ng-repeat="alert in vm.alerts" uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
-<div class="container">
+
+<div class="container form">
+	
 	<div class="row">
+		<div class="col-md-3 whiteblock">
+			<button class="btn submit" ng-click="vm.open()" >Apply</button>
+<div class="data">
+			<h3 class="h3-margin"><span class="blue-title"> <i class="fa fa-folder-open-o icon" aria-hidden="true"></i> Offer title </span></br>  <span class="simple-text">  {{vm.offer.title}} </span></h3>
+			<h3 class="h3-margin"><span class="blue-title"> <i class="fa fa-institution"></i> Company name </span> </br> <span class="simple-text">  {{vm.offer._company.name}} </span></h3>
+			<h3 class="h3-margin"> <span class="blue-title"> <i class="fa fa-info"></i> Offer type </span> </br> <span class="simple-text"> {{vm.offer.type}} </span></h3>
+			<h3 class="h3-margin"> <span class="blue-title"> <i class="fa fa-calendar"></i> start date </span> </br> <span class="simple-text"> {{vm.offer.created_at | date:'yyyy-MM-dd'}} </span></h3>
+			<h3 class="h3-margin"> <span class="blue-title"> <i class="fa fa-calendar-check-o"></i> end date </span> </br> <span class="simple-text"> {{vm.offer.ended_at | date:'yyyy-MM-dd'}} </span></h3>
+</div>
+		</div>
+
+		
 		<div class="col-md-9">
-			<h3><b> Offer title </b> : {{vm.offer.title}}</h3>
-			<h3> <b> Offer type </b> : {{vm.offer.type}}</h3>
-			<h3> <b> Offer start date </b> : {{vm.offer.created_at | date:'medium'}}</h3>
-			<h3> <b> Offer end date </b> : {{vm.offer.ended_at | date:'medium'}}</h3>
-		</div>
-		<div class="col-md-3">
-			<a class="btn btn-primary pull-right"  ng-click="vm.open()">Apply</a>			
-		</div>
-		
-		
-	</div> <div class='some-pdf-container'>
+		<div class='some-pdf-container'>
 	            <pdfjs-viewer src="{{vm.file}}"></pdfjs-viewer>
 			</div>
+		</div>
+		
+		
+		
+	</div> 
 <div class="row text-center" ng-hide="vm.offer">
     <div class="col-12">
 <h3 class="text-center">{{vm.error}}</h3>
@@ -61,6 +69,8 @@
 
 </div> 
     
+	</div>
+	
 </section>
 
 

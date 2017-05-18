@@ -22,8 +22,48 @@
 }
 
 
+.sub li a {
+padding: 12px !important;
+width: 100% !important;
+}
+.sub li {
+width: 100% !important;
+}
 
+.blue-title {
+color: #4eaff6;
+text-transform: uppercase;
+font-size: 21px;
+}
+.simple-text{
 
+  margin: 20px;
+font-size: medium;
+color: grey;
+}
+.whiteblock{
+  background-color: white;
+  padding : 10px !important;
+  min-height: 600px;
+}
+
+.h3-margin {
+margin-top: 90px;
+margin-bottom: -70px;
+}
+.data{
+  margin-top: 50px;
+}
+
+.icon {
+  
+  
+}
+
+.margin-top {
+  margin-top:70px;
+  
+}
 /* icon inside inputs */
 
 
@@ -206,7 +246,7 @@ html {
 	/*Image only BG fallback*/
 }
 body {
-	font-family: montserrat, arial, verdana;
+	font-family: 'Ubuntu', arial, verdana;
 }
 /*form styles*/
 #msform {
@@ -388,7 +428,7 @@ select:-moz-focusring {
 	border:0 !important;
 }
 
-textarea {resize: none;}
+textarea {resize: horizontal;}
 
 img {
 	outline:0;
@@ -459,7 +499,7 @@ p {margin:0 0 20px;}
 
 h1, h2, h3, h4, h5, h6 {
 	margin-top:0;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ubuntu', sans-serif;
 	text-transform:none;
 	font-weight:300;
 	color:#333;
@@ -601,7 +641,7 @@ header {
 /* __________ Menu __________ */
 .menu_block {
 	position:relative;
-	z-index:0;
+	z-index:10000;
 	left:0;
 	top:0;
 	right:0;
@@ -617,7 +657,6 @@ header {
 }
 .navmenu ul li a {
 	display:block;
-	margin:0 0 0 -3px;
 	padding:30px 20px;
 	text-transform:uppercase;
 	font-weight:900;

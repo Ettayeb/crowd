@@ -3,11 +3,31 @@ angular.module('CompanyCtrl', [])
 
 // controllers are here
 
-.controller('ClogController', function(companyAuth , $location) {
+.controller('CprofileController', function(companyAuth , $location) {
 
 var vm = this;
 
-             console.log(companyAuth.currentCompany());
+
+    vm.submit = function() {
+        
+        var company = vm.formData;
+        companyAuth
+            .login(company)
+            .then(function onSuccess(response){
+                console.log(response.data.token);
+             companyAuth.saveToken(response.data.token);
+                $location.path('/company');           
+            },function onError(response){
+              vm.error = response.data.message ;
+              console.log(vm.error);
+            });
+        
+        };   
+
+})
+.controller('ClogController', function(companyAuth , $location) {
+
+var vm = this;
 
 
     vm.submit = function() {
