@@ -7,14 +7,22 @@
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
 <section ng-controller="UlogController as login">
-<div class="container text-center">
-    <h1>Candidate Login</h1>
+<div class="form container text-center">
+    <h1 class="head">Candidate Login</h1>
 <form ng-submit="login.submit()" name="formData" ng-model="login.formData" >
 <div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="email"  name="email" ng-model="login.formData.email" placeholder="Email" required>
+	                <div class="icon-addon addon-lg">
+
+    <input class="form-control" type="email" id="email" name="email" ng-model="login.formData.email" placeholder="Email" required>
+	<label for="email" class="fa fa-user" rel="tooltip" title="email"></label>
+					</div>
 </div>
 <div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="password"  name="password" ng-model="login.formData.password" placeholder="Password" required>
+		<div class="icon-addon addon-lg">
+    <input class="form-control" type="password"  name="password" ng-model="login.formData.password" placeholder="Password" required>
+	<label for="email" class="fa fa-key" rel="tooltip" title="email"></label>
+	    </div>
+
 </div>
 
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
@@ -22,11 +30,18 @@
     </div>
 
 <div class="form-group col-xs-4 col-xs-offset-4">
-<input class="" value="Login" type="submit">    
+<input class="submit" value="Login" type="submit">    
+</div> 
+<div class="form-group col-xs-4 col-xs-offset-4">
+<h3>OR</h3>
+</div>
+<div class="form-group col-xs-4 col-xs-offset-4">
+<a class="btn submit a-button" href="/user/register" >Register</a>    
+</div> 
+
 </form>
 
 
-</div> 
     
 </section>
 

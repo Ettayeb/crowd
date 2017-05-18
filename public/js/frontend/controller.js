@@ -25,7 +25,7 @@ frontend.alloffers()
     .then(function onSuccess(response){
     vm.offers = response.data;
       vm.currentPage = 1; // keeps track of the current page
-   vm.pageSize = 2; // holds the number of items per page
+   vm.pageSize = 8; // holds the number of items per page
    vm.loaded = true;
 
 

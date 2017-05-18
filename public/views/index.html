@@ -27,36 +27,41 @@
         <span class="help-inline" ng-bind="vm.error"></span>
     </div>
 
-
+<div class="row spacing">
+	<div class="col-xs-12 col-md-12">
+		<h2>Recent Offers</h2>
+	</div>
+</div>
 <div id="products" class="row list-group" ng-show="vm.offers.length > 0">
-                     <div class="item list-group-item col-xs-4 col-lg-4" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize"> 
+                     <div class="item col-xs-3 col-lg-3" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize"> 
                      <div class="thumbnail">
                          <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
                          <div class="caption">
-                             <h4 class="group inner list-group-item-heading">{{offer.title}}</h4> 
-                             <p class="group inner list-group-item-text"> Product description... d tincidunt ut laoreet dolore magna aliquam erat volutpat.
-							 
-					  <h3>Type :</h3>{{offer.type}}
-				      <h3>Start date :</h3>{{offer.created_at | date:'medium'}}
-				      <h3>End date :</h3>{{offer.ended_at | date:'medium'}}					
+                             <h4 class=" text center group inner list-group-item-heading">{{offer.title}}</h4> 
+                             <p class="group inner list-group-item-text">
+							 <h6 class="type-italic">{{offer.type}}</h6>
+					  
+				      <h6> <i class="fa fa-calendar"> Start date : </i> {{offer.created_at | date:'medium'}} </h6>
+				      <h6>  <i class="fa fa-calendar"> End date : </i>  {{offer.ended_at | date:'medium'}}</h6>					
 
 							 
 							 </p>
-                             <div class="row"> 
-                             <div class="col-xs-12 col-md-6"> <p class="lead">
-                                 $21.000</p> 
-                                </div> 
-                                <div class="col-xs-12 col-md-6">
-                                     <a class="btn btn-success" ng-href="/offer/{{offer._id}}">Read more</a>
-                                </div>
-                                </div>
 						 </div>
+                             <div class="row"> 
+                                <div class="col-xs-12 col-md-12">
+                                     <a class="btn submit btn-crowd" ng-href="/offer/{{offer._id}}">Read more</a>
+                                </div>
+                                </div>
+
 				</div>
 		</div>
-<pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
-class="pagination-sm"></pagination>
-</div>
+					                              <div class="row"> 
+                                <div class="col-xs-12 col-md-12 text-center">
+                                     <a class="btn submit normal-button" ng-href="/offers">All Offers</a>
+                                </div>
+                                </div>
 
+</div>
 
 <div class="row text-center" ng-hide="vm.offers">
     <div class="col-12">

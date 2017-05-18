@@ -24,6 +24,84 @@
 
 
 
+/* icon inside inputs */
+
+
+.input-group .icon-addon .form-control {
+    border-radius: 0;
+}
+
+.icon-addon {
+    position: relative;
+    color: #555;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon, 
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    font-size: 14px;
+    width: 20px;
+    margin-left: -2.5px;
+    text-align: center;
+    padding: 10px 0;
+    top: 1px
+}
+
+.icon-addon.addon-lg .form-control {
+    line-height: 1.33;
+    height: 46px;
+    font-size: 18px;
+    padding: 10px 16px 10px 40px;
+}
+
+.icon-addon.addon-sm .form-control {
+    height: 30px;
+    padding: 5px 10px 5px 28px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.icon-addon.addon-lg .fa,
+.icon-addon.addon-lg .glyphicon {
+    font-size: 18px;
+    margin-left: 0;
+    left: 11px;
+    top: 4px;
+}
+
+.icon-addon.addon-md .form-control,
+.icon-addon .form-control {
+    padding-left: 30px;
+    float: left;
+    font-weight: normal;
+}
+
+.icon-addon.addon-sm .fa,
+.icon-addon.addon-sm .glyphicon {
+    margin-left: 0;
+    font-size: 12px;
+    left: 5px;
+    top: -1px
+}
+
+
+
+/**/
+
 .glyphicon {
     margin-right: 5px;
 }
@@ -72,16 +150,47 @@
 }
 
 
+.btn-crowd {
+  
+  width:100%;
+  border-radius:0;
+  
+  
+}
 
+.col-lg-3:nth-child(3n+1){
+    clear: left;
+}
 
+.type-italic {
+  font-style: italic;
+  color : grey;
+}
 
+.spacing {
+  margin:40px;
+}
 
+.normal-button{
+    width:20% !important;
+  border-radius:0;
+  margin:40px;
 
+}
 
-
-
-
-
+.form {
+  background-color: #fafafc;
+  padding:40px;
+}
+.head{
+  color: grey;
+border-bottom: 3px solid #4eaff6;
+padding-bottom: 19px;
+width: 40%;
+margin-left: auto;
+margin-right: auto;
+  
+}
 
 
 
@@ -246,8 +355,6 @@ body {
 	margin: 0;
 	padding:0;
 	font-family: 'Roboto', sans-serif;
-	font-weight:300;
-	font-size: 13px;
 	line-height: 20px;
 	color: #666;
 	background-color:#fff;
@@ -1408,21 +1515,37 @@ footer h4 {color:#fff;}
 /*	CONTACT FORM
 /*-----------------------------------------------------------------------------------*/
 /* __________ Contact Form __________ */
+
+.submit:hover , .submit:focus {
+  color : white;
+}
+
+.submit {
+	width:100%;
+	padding: 10px 8px;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	font-style:normal;
+	border-radius: 0;	
+	background: #4eaff6;
+	border: 1px solid #4eaff6;
+	box-shadow: none;
+	transition: border-color 0.3s ease-in-out; 
+	-webkit-transition: border-color 0.3s ease-in-out;
+text-transform: uppercase;
+}
+
 textarea,
-.crd-btn,input[type="text"], input[type="password"] , select , input[type="email"], input[type="submit"] {
+.crd-btn,input[type="text"], input[type="password"] , select , input[type="email"] {
 	width:100%;
 	margin:0 0 10px;
 	padding: 10px 8px;
-	text-transform:none;
 	font-family: 'Roboto', sans-serif;
-	font-weight:400;
-	line-height:20px;
-	font-size: 12px;
-	color: #333;
+	color: black;
 	font-style:normal;
 	border-radius: 0;	
-	background: none;
-	border: 2px solid #242424;
+	background: white;
+	border: 1px solid #d6dddd;
 	box-shadow: none;
 	transition: border-color 0.3s ease-in-out; 
 	-webkit-transition: border-color 0.3s ease-in-out;
@@ -1455,7 +1578,7 @@ input[type="color"]:focus {
 	outline: 0;
 	box-shadow: none;
 	color:#666;
-	border-color:#ccc;
+	border: 2px solid #4eaff6;
 }
 
 
