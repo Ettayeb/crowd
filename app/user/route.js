@@ -11,7 +11,7 @@ app.post('/api/user', controller.register);
 app.post('/api/apply' , controller.apply);
 app.get('/api/applies/:id' , controller.getapplies);
 app.get('/api/applied/:id' , controller.applied);
-
+app.get('/api/privateuserapplies',userAuth, controller.privateuserapplies);
 
 
 

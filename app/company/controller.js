@@ -31,16 +31,16 @@ var storage =   multer.diskStorage({
 
 
 var profile =   multer.diskStorage({
-  destination: function (req, file, callback) {
+  destination: function (req, logo, callback) {
     callback(null, './public/uploads/logos');
   },
-  filename: function (req, file, callback) {
-   var fname = Date.now()+file.originalname;
+  filename: function (req, logo, callback) {
+   var fname = Date.now()+logo.originalname;
     callback(null,fname);
   }
 });
 
-var uploadlogo = multer({ storage : profile}).single('file');
+var uploadlogo = multer({ storage : profile}).single('logo');
 
 
 
@@ -52,6 +52,31 @@ var Company = require('./Company');
 var Offer = require('./Offer');
 
 require('../config/company-passport')(passport,Company);
+
+
+
+
+
+module.exports.profile =  function (req, res) {
+
+  // If no company ID exists in the JWT return a 401
+
+  if (!req.user._id) {
+     res.status(401).json({
+      "message" : "UnauthorizedError: private data"
+    });
+  } else {
+    // Otherwise continue
+    Company
+      .findById({ _id : req.user._id} , { password: 0 , salt : 0})
+      .exec(function(err, company) {
+        console.log('we are here !!!');
+        res.status(200).json(company);
+      });
+  }
+
+};
+
 
 
 module.exports.profileupdate =  function (req, res) {
@@ -77,13 +102,13 @@ module.exports.profileupdate =  function (req, res) {
         company.name = req.body.name;
         company.email = req.body.email;
         company.activity = req.body.activity;
-        company.category = req.body.categry;
+        company.category = req.body.category;
         company.size = req.body.size;
         company.email = req.body.email;
         company.phone = req.body.phone;
         company.adress = req.body.adress;
         company.country = req.body.country;
-        company.logo = req.file.fname;
+        company.logo = req.file && req.file.filename || company.logo;
 
         console.log(company);
         company.save(function(err , company){

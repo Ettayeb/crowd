@@ -105,6 +105,33 @@ module.exports.login = function(req, res) {
 
 };
 
+module.exports.privateuserapplies =  function (req, res) {
+
+  // If no company ID exists in the JWT return a 401
+  console.log(req);
+  if (!req.payload._id) {
+     return res.status(401).json({
+      "message" : "UnauthorizedError: private data"
+    });
+  } else {
+    // Otherwise continue
+    Apply
+      .find({ _user : req.payload._id})
+      .populate('_offer')
+      .exec(function(err, applies) {
+        if(err)
+        return res.status(401).json({
+          "message" : "Error Data"
+          });
+        
+        res.status(200).json(applies);
+      });
+  }
+
+};
+
+
+
 module.exports.apply = function(req , res){
            upload(req,res,function(err) {
         if(err) {

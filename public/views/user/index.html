@@ -1,0 +1,59 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+<!-- sections -->
+<section class="one-section" ng-controller="UindController as vm">
+<div class="container text-center">
+        <a class="btn submit pull-right" href="/offers">Offers List</a>
+    <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
+        <span class="help-inline" ng-bind="vm.error"></span>
+    </div>
+
+<table class="table" ng-show="vm.applies">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Your File</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="apply in vm.applies | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
+      <th scope="row">{{$index}}</th>
+      <td><a ng-href="/company/offer/{{apply._offer._id}}">{{apply._offer.title}}</a></td>
+      <td>{{apply._offer.type}}</td>
+      <td>{{apply._offer.created_at | date:'medium'}}</td>
+      <td>{{apply._offer.ended_at | date:'medium'}}</td>
+	  <td><a ng-href="/uploads/apply/{{apply.file}}" target="_blank">File</a></td>
+
+    </tr>
+  </tbody>
+</table>
+            <pagination uib-pagination total-items="vm.applies.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
+                        class="pagination-sm"></pagination>
+<div class="row text-center" >
+    <div class="col-12" ng-hide="vm.applies">
+<h3 class="text-center">You did not apply for any offer till now !</h3>
+    </div>
+    
+</div>
+
+</div> 
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

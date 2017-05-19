@@ -99,15 +99,15 @@
 
 <div class="form-group col-md-4">
 	<label for="file"> Logo :</label>
-      <input type="file" ngf-select ng-model="vm.formData.file" name="file"    
+      <input type="file" ngf-select ng-model="vm.formData.logo" name="logo"    
              accept="image/*" ngf-max-size="5MB"
              ngf-model-invalid="errorFile">
 
 	<i ng-show="myForm.file.$error.required">*required</i><br>
     <i ng-show="myForm.file.$error.maxSize">File too large 
         {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
-    <img ng-show="vm.formData.file.$valid" ngf-thumbnail="vm.formData.file" class="thumb">
-	<button class="btn btn-primary" ng-click="vm.formData.file = null" ng-show="vm.formData.file">Remove</button>
+    <img ng-show="vm.formData.logo.$valid" ngf-thumbnail="'/uploads/logos/' + vm.formData.logo" class="thumb">
+	<button class="btn btn-primary" ng-click="vm.formData.logo = null" ng-show="vm.formData.logo">Remove</button>
 	  
 </div>
 
