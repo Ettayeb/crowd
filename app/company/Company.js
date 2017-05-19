@@ -16,8 +16,7 @@ var CompanySchema = new Schema({
    adress : {type : String , required : false},
    country_code : {type : String , required : false},
    phone : {type : String , required : false},
-
-   
+   logo : {type : String , required : false},   
    password : {type : String , required : true},
    salt : {type : String , required : true},
    description : {type : String , required : false},

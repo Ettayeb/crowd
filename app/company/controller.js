@@ -28,6 +28,23 @@ var storage =   multer.diskStorage({
   }
 });
 
+
+
+var profile =   multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './public/uploads/logos');
+  },
+  filename: function (req, file, callback) {
+   var fname = Date.now()+file.originalname;
+    callback(null,fname);
+  }
+});
+
+var uploadlogo = multer({ storage : profile}).single('file');
+
+
+
+
 var upload = multer({ storage : storage}).single('file');
 
 
@@ -37,22 +54,51 @@ var Offer = require('./Offer');
 require('../config/company-passport')(passport,Company);
 
 
-module.exports.profileRead =  function (req, res) {
+module.exports.profileupdate =  function (req, res) {
 
-  // If no company ID exists in the JWT return a 401
-  if (!req.payload._id) {
-     res.status(401).json({
+        uploadlogo(req,res,function(err) {
+    if (!req.user._id) {
+     return res.status(401).json({
       "message" : "UnauthorizedError: private profile"
     });
   } else {
     // Otherwise continue
     Company
-      .findById(req.payload._id)
+      .findById(req.user._id)
       .exec(function(err, company) {
-        console.log('we are here !!!');
-        res.status(200).json(company);
+        if (err) return res.status(401).json({
+      "message" : err
+    });
+        if (req.body.password) {
+          company.setPassword(req.body.password);
+        }
+        console.log(req.body);
+
+        company.name = req.body.name;
+        company.email = req.body.email;
+        company.activity = req.body.activity;
+        company.category = req.body.categry;
+        company.size = req.body.size;
+        company.email = req.body.email;
+        company.phone = req.body.phone;
+        company.adress = req.body.adress;
+        company.country = req.body.country;
+        company.logo = req.file.fname;
+
+        console.log(company);
+        company.save(function(err , company){
+        if (err) return res.status(401).json({
+      "message" : "Error: Contact the webmaster please"
+    });
+        return res.status(200).json(company);
+          
+          });
       });
   }
+
+
+
+    });    
 
 };
 

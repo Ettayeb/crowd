@@ -33,6 +33,7 @@ angular.module('CompanyService', []).factory('companyAuth', function ($http, $wi
           id : payload._id,
           email : payload.email,
           name : payload.name
+
         };
       }
     };

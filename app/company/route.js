@@ -8,6 +8,9 @@ controller = require('./controller');
 
 app.post('/api/company', controller.register);
 app.post('/api/companylogin', controller.login);
+app.post('/api/company/profile',companyAuth, controller.profileupdate);
+
+
 app.get('/api/privateoffers',companyAuth, controller.privateoffers);
 app.post('/api/offer', companyAuth , controller.addoffer);
 

@@ -3,25 +3,41 @@ angular.module('CompanyCtrl', [])
 
 // controllers are here
 
-.controller('CprofileController', function(companyAuth , $location) {
+.controller('CprofileController', function(companyAuth , common , Upload , $location) {
 
 var vm = this;
+vm.formData = {};
+vm.alerts = [];
+vm.closeAlert = function(index) {
+    vm.alerts.splice(index, 1);
+};
 
 
-    vm.submit = function() {
-        
-        var company = vm.formData;
-        companyAuth
-            .login(company)
-            .then(function onSuccess(response){
-                console.log(response.data.token);
-             companyAuth.saveToken(response.data.token);
-                $location.path('/company');           
-            },function onError(response){
-              vm.error = response.data.message ;
-              console.log(vm.error);
-            });
-        
+common.countries().then(function(response){
+   vm.countries = response.data;
+});
+
+vm.formData.id = companyAuth.currentCompany().id;
+
+vm.submit = function() {
+    
+    if (vm.formData.password != vm.formData.password_confirm ){
+        vm.alerts.push({ type : "danger" , msg : "Verify your password please"});
+    }
+    else {
+        console.log(vm.formData);
+        Upload.upload({
+            url: '/api/company/profile',
+            data: vm.formData,
+            headers: {'Authorization': 'Bearer '+ companyAuth.getToken()}, // only for html5
+        }).then(function (resp) {
+            console.log('Success ');
+        }, function (resp) {
+            console.log('Error status: ');
+        });
+    }
+
+
         };   
 
 })

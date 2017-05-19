@@ -1,1 +1,1 @@
-angular.module("crowd" , ["ngRoute" , "ui.bootstrap" ,"routes" , "angularLoad", "pdfjsViewer" , "puigcerber.countryPicker" , "ngFileUpload" , "UserCtrl" , "UserService","CompanyCtrl" , "CompanyService","FrontendCtrl" , "FrontendService"]);
+angular.module("crowd" , ["ngRoute" , "ui.bootstrap" ,"routes" , "angularLoad", "pdfjsViewer" , "puigcerber.countryPicker" , "ngFileUpload" ,"CommonService" , "UserCtrl" , "UserService","CompanyCtrl" , "CompanyService","FrontendCtrl" , "FrontendService"]);
