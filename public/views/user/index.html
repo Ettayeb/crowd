@@ -7,8 +7,8 @@
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
 <section class="one-section" ng-controller="UindController as vm">
-<div class="container text-center">
-        <a class="btn submit pull-right" href="/offers">Offers List</a>
+<div class="container">
+        <a class="btn submit-simple pull-right" href="/offers">Offers List</a>
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
         <span class="help-inline" ng-bind="vm.error"></span>
     </div>
@@ -37,7 +37,7 @@
   </tbody>
 </table>
             <pagination uib-pagination total-items="vm.applies.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
-                        class="pagination-sm"></pagination>
+                        class="pagination-sm text-center"></pagination>
 <div class="row text-center" >
     <div class="col-12" ng-hide="vm.applies">
 <h3 class="text-center">You did not apply for any offer till now !</h3>

@@ -89,6 +89,7 @@ angular.module('CompanyCtrl', [])
   var vm = this;
   companyAuth.getoffers().then(function onSuccess(response) {
     vm.offers = response.data;
+    console.log(vm.offers);
     vm.currentPage = 1; // keeps track of the current page
     vm.pageSize = 2; // holds the number of items per page
   }, function onError(response) {

@@ -394,7 +394,7 @@ body {
 	position:relative;
 	margin: 0;
 	padding:0;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ubuntu', sans-serif;
 	line-height: 20px;
 	color: #666;
 	background-color:#fff;
@@ -1554,6 +1554,33 @@ footer h4 {color:#fff;}
 /*	CONTACT FORM
 /*-----------------------------------------------------------------------------------*/
 /* __________ Contact Form __________ */
+
+.pagination{
+  margin-right: auto;
+  margin-left: auto;
+  
+}
+
+
+.submit-simple:hover , .submit-simple:focus {
+  color : white;
+}
+
+.submit-simple {
+	padding: 10px 8px;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	font-style:normal;
+	border-radius: 0;	
+	background: #4eaff6;
+	border: 1px solid #4eaff6;
+	box-shadow: none;
+	transition: border-color 0.3s ease-in-out; 
+	-webkit-transition: border-color 0.3s ease-in-out;
+text-transform: uppercase;
+margin:20px;
+}
+
 
 .submit:hover , .submit:focus {
   color : white;
