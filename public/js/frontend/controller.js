@@ -7,7 +7,6 @@ angular.module('FrontendCtrl', [])
 .controller('navCtrl', function(frontend, $location, userAuth, companyAuth) {
 
   var vm = this;
-
   vm.userloggedin = userAuth.isLoggedIn();
   vm.companyloggedin = companyAuth.isLoggedIn();
 
@@ -61,22 +60,29 @@ angular.module('FrontendCtrl', [])
 
 
 
-}).controller('OindController', function(frontend, userAuth, $routeParams, $location, $uibModal) {
+}).controller('OindController', function(frontend, common , userAuth, $routeParams, $location, $uibModal) {
 
   var vm = this;
+  vm.app = 0 ;
   vm.alerts = [];
   vm.closeAlert = function(index) {
     vm.alerts.splice(index, 1);
   };
 
-
   vm.userloggedin = userAuth.isLoggedIn();
-
+  console.log(vm.userloggedin);
   if (vm.userloggedin) {
     userAuth.applied(userAuth.currentUser().id).then(function onSuccess(response) {
 
+      if (response.data){
+        console.log("aaaaaaaaaaaa");
       vm.app = 1;
+      }
+      else {
+        console.log("aaaaaaaaaaaddddddddd");
 
+        vm.app = 0;
+      }
     },
 
     function onError() {
@@ -84,7 +90,8 @@ angular.module('FrontendCtrl', [])
       vm.app = 0;
     });
   }
-  console.log(vm.app);
+      console.log(vm.app);
+
   frontend.singleoffer($routeParams.id).then(function onSuccess(response) {
     vm.offer = response.data;
     vm.file = "/uploads/" + vm.offer.file;
@@ -144,6 +151,19 @@ angular.module('FrontendCtrl', [])
 
   };
 
+  vm.vote = function(applyid){
+  common.vote(applyid).then(function onSuccess(resp){
+    console.log("Voteddd");
+    
+    
+    },function onError(resp){
+    console.log("ERROORR VOTE");
+    
+    });
+    
+  };
+  
+  
 
 })
 

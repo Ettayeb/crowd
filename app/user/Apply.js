@@ -7,9 +7,9 @@ var ApplySchema = new Schema({
    _offer : {type : mongoose.Schema.Types.ObjectId, ref: 'Offer'},
    _user : {type : mongoose.Schema.Types.ObjectId, ref: 'User'},
    file : {type : String },
-   votes : {type : Number },
+   votes : {type : Number , default: 0 },
    created_at : Date ,    
-    
+
 });
 
 

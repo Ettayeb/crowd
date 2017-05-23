@@ -14,6 +14,7 @@ app.get('/api/applied/:id' , controller.applied);
 app.get('/api/privateuserapplies',userAuth, controller.privateuserapplies);
 app.post('/api/user/profile',userAuth, controller.profileupdate);
 app.get('/api/user/profile/:id',userAuth, controller.profile);
+app.get('/api/vote/:id' , controller.vote);
 
 
 

@@ -270,3 +270,27 @@ module.exports.applied = function(req , res){
   
 };
 
+module.exports.vote = function(req , res){
+  if(req.params.id){
+    Apply.findById(req.params.id)
+    .exec(function(err , apply){
+            if(err)
+      return res.status(406).json({
+      "message" : "Contact the webmaster"});
+
+      apply.votes = apply.votes + 1;
+      apply.save(function(err){
+        if (err)
+              return res.status(406).json({
+              "message" : "Contact the webmaster"});
+
+              return res.status(200).json({
+              "message" : "Done"});
+
+      });
+  
+  });
+  }
+  
+  
+};
