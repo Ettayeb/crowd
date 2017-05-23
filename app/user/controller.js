@@ -24,6 +24,19 @@ var storage =   multer.diskStorage({
   }
 });
 
+var profile =   multer.diskStorage({
+  destination: function (req, logo, callback) {
+    callback(null, './public/uploads/logos');
+  },
+  filename: function (req, logo, callback) {
+   var fname = Date.now()+logo.originalname;
+    callback(null,fname);
+  }
+});
+
+var uploadlogo = multer({ storage : profile}).single('logo');
+
+
 var upload = multer({ storage : storage}).single('file');
 
 
@@ -31,6 +44,76 @@ var upload = multer({ storage : storage}).single('file');
 
 
 require('../config/user-passport')(passport,User);
+
+
+module.exports.profile =  function (req, res) {
+
+  // If no company ID exists in the JWT return a 401
+
+  if (!req.payload._id) {
+     res.status(401).json({
+      "message" : "UnauthorizedError: private data"
+    });
+  } else {
+    // Otherwise continue
+    User
+      .findById({ _id : req.payload._id} , { password: 0 , salt : 0})
+      .exec(function(err, user) {
+        console.log('we are here !!!');
+        res.status(200).json(user);
+      });
+  }
+
+};
+
+
+
+module.exports.profileupdate =  function (req, res) {
+
+        uploadlogo(req,res,function(err) {
+    if (!req.payload._id) {
+     return res.status(401).json({
+      "message" : "UnauthorizedError: private profile"
+    });
+  } else {
+    // Otherwise continue
+    User
+      .findById(req.payload._id)
+      .exec(function(err, user) {
+        if (err) return res.status(401).json({
+      "message" : err
+    });
+        if (req.body.password) {
+          user.setPassword(req.body.password);
+        }
+        console.log(req.body);
+
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.phone = req.body.phone;
+        user.adress = req.body.adress;
+        user.country = req.body.country;
+        user.description = req.body.description;
+        user.logo = req.file && req.file.filename || user.logo;
+
+        console.log(user);
+        user.save(function(err , user){
+        if (err) return res.status(401).json({
+      "message" : "Error: Contact the webmaster please"
+    });
+        return res.status(200).json(user);
+          
+          });
+      });
+  }
+
+
+
+    });    
+
+};
+
+
 
 module.exports.profileRead =  function (req, res) {
 

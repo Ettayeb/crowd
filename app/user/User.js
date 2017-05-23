@@ -11,9 +11,12 @@ var UserSchema = new Schema({
    password : {type : String , required : true},
    salt : {type : String , required : true},
    description : {type : String },
+   phone : {type : String },
+   country : {type : String },
+   adress : {type : String },
+   logo : {type : String },
    created_at : Date ,
    updated_at : Date
-    
     
 });
 

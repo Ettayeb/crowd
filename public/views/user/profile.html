@@ -5,42 +5,116 @@
 	
 		<!-- HEADER -->
 <header ng-include="'views/partials/header.html'"></header>
-
 <!-- sections -->
-<section ng-controller="UprofileController as vm">
-<div class="form container text-center">
-    <h1 class="head">Candidate registration</h1>
-<form ng-submit="register.submit()" name="formData" ng-model="register.formData" >
-    	
-<div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="text"  name="name" ng-model="register.formData.name" placeholder="Full name" required>
+<section class="one-section" ng-controller="UprofileController as vm">
+
+<div class="container">
+	
+	<div class="row">
+		
+		
+<form ng-model="vm.formData" class="tab-form-demo form" ng-submit="vm.submit()">
+  <div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
+    <uib-tabset active="activeForm" justified="true">
+      <uib-tab index="0" heading="Profile informations" class="spacing" >
+<div class="margin-top">
+    <div class="row">
+<div class="form-group col-md-4">
+<label for ="name">Candidate Name</label>
+
+    <input  type="text"  name="name" ng-model="vm.formData.name" placeholder="Candidate Name" >
 </div>
-    <div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="email"  name="email" ng-model="register.formData.email" placeholder="Email" required>
+<div class="form-group col-md-4">
+<label for ="country">Company Country</label>
+<select name="country" ng-model="vm.formData.country">    
+    <option ng-repeat="country in vm.countries">{{country.name}}</option>
+</select>
 </div>
-<div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="password"  name="password" ng-model="register.formData.password" placeholder="Password" required>
+<div class="form-group col-md-4">
+<label for ="Phone">Candidate Phone</label>
+<input type="text" ng-model="vm.formData.phone" name="phone" placeholder="Phone Number" >
 </div>
-<div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="password" name="password_verif" ng-model="register.formData.password_verif" placeholder="Password verification" required>
+	</div>
+<div class="row">
+<div class="form-group col-md-4">
+<textarea ng-model="vm.formData.adress" placeholder="Candidate Adress"></textarea>
+</div>
+<div class="form-group col-md-4">
+<textarea ng-model="vm.formData.description" placeholder="Description ( Experiences , Old Projects...)"></textarea>
 </div>
 
-    <div class="control-group col-xs-6 col-xs-offset-3 text-danger" ng-show="register.error" >
-        <span class="help-inline">{{register.error}}</span>
-    </div>
+<div class="form-group col-md-4">
+	<label for="file"> Photo :</label>
+      <input type="file" ngf-select ng-model="vm.formData.logo" name="logo"    
+             accept="image/*" ngf-max-size="5MB"
+             ngf-model-invalid="errorFile">
+
+	<i ng-show="myForm.file.$error.required">*required</i><br>
+    <i ng-show="myForm.file.$error.maxSize">File too large 
+        {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+    <img ng-show="vm.formData.logo.$valid" ngf-thumbnail="'/uploads/logos/' + vm.formData.logo" class="thumb">
+	<button class="btn btn-primary" ng-click="vm.formData.logo = null" ng-show="vm.formData.logo">Remove</button>
+	  
+</div>
+
+
+</div>
+                 
 
 <div class="form-group col-xs-4 col-xs-offset-4">
 <input class="submit" value="Register" type="submit">    
 </form>
+</div>
+
+</div>     
+                    
+      </uib-tab>
+<uib-tab index="1" heading="Account Settings" >
+
+
+<div class="margin-top">
+    <div class="row">
+<div class="form-group col-md-4">
+    <input  type="text"  name="email" ng-model="vm.formData.email" placeholder="Email" >
+</div>
+<div class="form-group col-md-4">
+    <input  type="password"  name="name" ng-model="vm.formData.password" placeholder="New Password">
+</div>
+<div class="form-group col-md-4">
+    <input  type="password"  name="password_confirm" ng-model="vm.formData.password_confirm" placeholder="Password Confirmation" >
+</div>
+
+	</div>
+
+<div class="form-group col-xs-4 col-xs-offset-4">
+<input class="submit" value="Register" type="submit">    
+</form>
+</div>
+
+</div>
+
+
+
+
+</uib-tab>
+    </uib-tabset>
+  </form>
+		
+		
+		
+	</div> 
+
+
 
 
 </div> 
-    
+    	
 </section>
 
 
-
 <!-- end sections -->
+	</div>
+
     </div>
 
 <footer ng-include="'views/partials/footer.html'"></footer>

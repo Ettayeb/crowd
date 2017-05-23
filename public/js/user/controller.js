@@ -3,6 +3,68 @@ angular.module('UserCtrl', [])
 
 // controllers are here
 
+.controller('UprofileController', function(userAuth, Upload , common , $location) {
+
+  var vm = this;
+  vm.formData = {};
+  vm.alerts = [];
+  vm.closeAlert = function(index) {
+    vm.alerts.splice(index, 1);
+  };
+
+  userAuth.profile().then(function(resp) {
+
+    vm.formData = resp.data;
+    console.log(vm.formData);
+  }, function(resp) {
+    vm.alerts.push({
+      type: "danger",
+      msg: "There is a problem loading your data.. Please contact the webmaster"
+    });
+  });
+
+
+  common.countries().then(function(response) {
+    vm.countries = response.data;
+  });
+
+  vm.submit = function() {
+    if (vm.formData.password != vm.formData.password_confirm) vm.alerts.push({
+      type: "danger",
+      msg: "Verify your password please"
+    });
+    if (Object.keys(vm.formData).length == 0) {
+      return vm.alerts.push({
+        type: "warning",
+        msg: "No changes done"
+      });
+    }
+    console.log(vm.formData);
+    Upload.upload({
+      url: '/api/user/profile',
+      data: vm.formData,
+      headers: {
+        'Authorization': 'Bearer ' + userAuth.getToken()
+      }, // only for html5
+    }).then(function(resp) {
+      vm.alerts.push({
+        type: "success",
+        msg: "Your data changed with success"
+      });
+    }, function(resp) {
+      vm.alerts.push({
+        type: "danger",
+        msg: "There is a problem loading your data.. Please contact the webmaster"
+      });
+    });
+
+
+  };
+
+
+
+
+})
 .controller('UlogController', function(userAuth, $location) {
 
   var vm = this;

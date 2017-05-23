@@ -1,0 +1,70 @@
+<div class="">
+
+
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+<!-- sections -->
+<section class="one-section" ng-controller="FindController as vm" >
+<div ng-hide="vm.loaded" class="preloader">
+</div>
+
+<div ng-hide="!vm.loaded">
+<div class="container">
+    <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
+        <span class="help-inline" ng-bind="vm.error"></span>
+    </div>
+
+<div id="products" class="row list-group" ng-show="vm.offers.length > 0">
+                     <div class="item col-xs-3 col-lg-3" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize"> 
+                     <div class="thumbnail">
+                         <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                         <div class="caption">
+                             <h4 class=" text center group inner list-group-item-heading">{{offer.title}}</h4> 
+                             <p class="group inner list-group-item-text">
+							 <h6 class="type-italic">{{offer.type}}</h6>
+					  
+				      <h6> <i class="fa fa-calendar"> Start date : </i> {{offer.created_at | date:'medium'}} </h6>
+				      <h6>  <i class="fa fa-calendar"> End date : </i>  {{offer.ended_at | date:'medium'}}</h6>					
+
+							 
+							 </p>
+						 </div>
+                             <div class="row"> 
+                                <div class="col-xs-12 col-md-12">
+                                     <a class="btn submit btn-crowd" ng-href="/offer/{{offer._id}}">Read more</a>
+                                </div>
+                                </div>
+
+				</div>
+		</div>
+					                              <div class="row"> 
+                                <div class="col-xs-12 col-md-12 text-center">
+                                     <a class="btn submit normal-button" ng-href="/offers">All Offers</a>
+                                </div>
+                                </div>
+
+</div>
+
+<div class="row text-center" ng-hide="vm.offers">
+    <div class="col-12">
+<h3 class="text-center">There is no offers for now !</h3>
+    </div>
+</div>
+
+</div>
+</div> 
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

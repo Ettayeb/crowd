@@ -70,6 +70,15 @@ angular.module('UserService', []).factory('userAuth', function($http, $window, $
     });
   };
 
+    profile = function() {
+    return $http.get('/api/user/profile/' + currentUser().id, {
+      headers: {
+        Authorization: 'Bearer ' + getToken()
+      }
+    });
+  };
+
+  
   return {
     currentUser: currentUser,
     saveToken: saveToken,
@@ -79,7 +88,8 @@ angular.module('UserService', []).factory('userAuth', function($http, $window, $
     register: register,
     login: login,
     applied: applied,
-    getapplies: getapplies
+    getapplies: getapplies,
+    profile : profile
 
   };
 
