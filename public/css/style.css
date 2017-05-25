@@ -1,6 +1,241 @@
 /*-----------------------------------------------------------------------------------*/
 /*	GENERAL STYLING
 /*-----------------------------------------------------------------------------------*/
+.presentation-container {
+    width: 1136px;
+    min-width: 1136px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.span12{
+  width:45%;
+}
+
+#home-steps .presentation-background {
+	background-image:url("/images/men.jpg");
+	margin-top:80px;
+	margin-left:40px;
+  z-index:1;
+  width: 45%
+}
+.presentation-steps {
+	position:relative
+
+}
+.presentation-steps .step {
+	position:relative;
+	margin-left:80px;
+	margin-bottom:40px;
+	margin-bottom:4rem
+}
+.presentation-steps .step:before {
+	display:block;
+	position:absolute;
+	font-size:45px;
+	width:65px;
+	text-align:center;
+	height:65px;
+	line-height:65px;
+	border-radius:50%;
+	margin:10px auto;
+	box-sizing:border-box;
+	background-color:#00afaf;
+	color:#ffffff;
+	left:-80px;
+	top:-25px
+}
+.presentation-steps .step.step1:before {
+	content:'1'
+}
+.presentation-steps .step.step2:before {
+	content:'2'
+}
+.presentation-steps .step.step3:before {
+	content:'3'
+}
+.presentation-steps .step.step4:before {
+	content:'4'
+}
+.presentation-steps .step h4 {
+	font-weight:bold;
+	color:#767676
+}
+.presentation-steps .step p:last-child {
+	margin-bottom:0
+}
+.presentation-steps .group-3-steps .step1:before {
+	background-color:rgba(0,175,175,0.4)
+}
+.presentation-steps .group-3-steps .step2:before {
+	background-color:rgba(0,175,175,0.7)
+}
+.presentation-steps .group-3-steps .step3:before {
+	background-color:#00afaf
+}
+.presentation-steps .group-4-steps .step1:before {
+	background-color:rgba(0,175,175,0.4)
+}
+.presentation-steps .group-4-steps .step2:before {
+	background-color:rgba(0,175,175,0.5)
+}
+.presentation-steps .group-4-steps .step3:before {
+	background-color:rgba(0,175,175,0.7)
+}
+.presentation-steps .group-4-steps .step4:before {
+	background-color:#00afaf
+}
+.presentation-steps .presentation-background {
+	background-color:#ffffff;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:50px bottom;
+	width:920px;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:50%;
+	z-index:-1
+}
+.presentation-steps .btn {
+	margin-left:80px;
+	display:block
+}
+.presentation-steps-2 {
+	position:relative
+}
+.presentation-steps-2 .step {
+	position:relative;
+	margin-left:80px;
+	margin-bottom:40px;
+	margin-bottom:4rem
+}
+.presentation-steps-2 .step:before {
+	display:block;
+	position:absolute;
+	font-size:12rem;
+	font-weight:bold;
+	width:65px;
+	text-align:center;
+	height:12rem;
+	line-height:12rem;
+	margin:10px auto;
+	box-sizing:border-box;
+	color:#ffffff;
+	left:-80px;
+	top:-25px
+}
+.presentation-steps-2 .step.step1:before {
+	content:'1'
+}
+.presentation-steps-2 .step.step2:before {
+	content:'2'
+}
+.presentation-steps-2 .step.step3:before {
+	content:'3'
+}
+.presentation-steps-2 .step.step4:before {
+	content:'4'
+}
+.presentation-steps-2 .step h4 {
+	font-weight:bold;
+	color:#767676
+}
+.presentation-steps-2 .step p:last-child {
+	margin-bottom:0
+}
+.presentation-steps-2 .presentation-background {
+	background-color:#ffffff;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:50px bottom;
+	width:920px;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:50%;
+	z-index:-1
+}
+.presentation-steps-2 .btn {
+	margin-left:80px;
+	display:block
+}
+
+.presentation-layout .presentation-container {
+	width:1136px;
+	min-width:1136px;
+	max-width:100%;
+	margin:0 auto;
+	padding:20px;
+	box-sizing:border-box
+}
+.presentation-layout .presentation-container h1+p:not(.subtitle) {
+	margin-top:-3rem;
+	margin-top:-30px;
+	margin-bottom:40px;
+	margin-bottom:4rem;
+	text-align:center
+}
+.presentation-layout .presentation-container .profile h4 {
+	color:#0094af;
+	font-weight:400;
+	margin-bottom:0
+}
+.presentation-layout .presentation-container .profile>a,.presentation-layout .presentation-container .profile>img {
+	float:left;
+	margin-right:10px;
+	max-width:100px;
+	max-height:100px
+}
+.presentation-layout .presentation-container .profile span {
+	display:block
+}
+.presentation-layout .presentation-container .profile .content {
+	display:inline-block;
+	width:calc(100% - 110px)
+}
+
+
+
+
+/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
+
+
+
+
+
+
+
+
+
+
+/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
+
+
+.index-logo{
+  
+  padding: 70px;
+background-image: url("/images/back.png");
+}
+
+.list-logo{
+    font-size: 30px;
+    color: white;
+  margin:10px;
+  
+}
+.list {
+  
+    margin: 5%;
+    font-size: 30px;
+    color: white;
+}
+.index-list{
+  
+  background: black;
+padding: 70px;
+}
 
           .some-pdf-container {
             width: 100%;

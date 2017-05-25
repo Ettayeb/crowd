@@ -112,24 +112,23 @@ angular.module('CompanyCtrl', [])
 
     } else {
       // call the auth.. factory then it will do the job
-      companyAuth.register(company).
-      catch (function(err) {
-        this.error = err.message;
-        console.log("errooooooor");
-      }).then(function(data) {
-        console.log(data);
-        companyAuth.saveToken(data.token);
+      companyAuth.register(company).then(function onSuccess(resp) {
+        companyAuth.saveToken(resp.data.token);
         // any redirection or what you want to add here after the register
-        console.log("Successfully Registered !");
         $location.path("/");
+      }, function onError(resp) {
+        vm.error = resp.data.message;
       });
     }
 
   };
 
-}).controller('OaddController', function(Upload, companyAuth, $location) {
+}).controller('OaddController', function(Upload, companyAuth, $location ) {
+
   var vm = this;
   // something beautiful will be here xD
+  console.log("aaaaaaa");
+
   vm.formData = {};
   vm.formData._company = companyAuth.currentCompany().id;
   vm.options = {
@@ -145,7 +144,9 @@ angular.module('CompanyCtrl', [])
   };
   vm.open = function() {
     vm.popup.opened = true;
-  };
+  };  
+
+
 
   vm.submit = function() {
     Upload.upload({

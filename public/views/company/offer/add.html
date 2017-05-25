@@ -15,11 +15,10 @@
 </div>
 <div class="form-group col-xs-6 col-xs-offset-3">
     <label for="type">Type :</label>
-    <select  name="type" ng-model="vm.formData.type" required>
+    <select  name="type" ng-model="vm.formData.type" ng-change="vm.changetype()">
         <option value="" default>Choose..</option>
         <option value="vote">Vote</option>
         <option value="postiluation">Postiluation</option>
-        
         
     </select>
 </div>
@@ -43,11 +42,10 @@
     </div>
 
 <div class="form-group col-xs-4 col-xs-offset-4">
-<input class="" value="Add" type="submit">    
+<input class="btn submit" value="Add" type="submit">    
+</div>
 </form>
-
-
-</div> 
+</div>
     
 </section>
 
