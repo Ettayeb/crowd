@@ -8,7 +8,7 @@
 		<!-- HEADER -->
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
-<section class="one-section" ng-controller="FindController as vm" >
+<section class="one-section" ng-controller="SindController as vm" >
 <div ng-hide="vm.loaded" class="preloader">
 </div>
 
@@ -17,8 +17,17 @@
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
         <span class="help-inline" ng-bind="vm.error"></span>
     </div>
+<div class="row centered">
+	<div class="input-group">
+   <input type="text" class="form-control" ng-model="vm.search">
+   <span class="input-group-btn">
+        <button class="btn btn-primary" ng-click="vm.submit()" type="button">Recherche</button>
+   </span>
+</div>
+</div>
 
-<div id="products" class="row list-group" ng-show="vm.offers.length > 0">
+
+<div id="products" class="row list-group centered" ng-show="vm.offers.length > 0">
                      <div class="item col-xs-3 col-lg-3" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize"> 
                      <div class="thumbnail">
                          <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
@@ -41,12 +50,6 @@
 
 				</div>
 		</div>
-					                              <div class="row"> 
-                                <div class="col-xs-12 col-md-12 text-center">
-                                     <a class="btn submit normal-button" ng-href="/offers">All Offers</a>
-                                </div>
-                                </div>
-
 </div>
 
 <div class="row text-center" ng-hide="vm.offers">
@@ -54,6 +57,8 @@
 <h3 class="text-center">There is no offers for now !</h3>
     </div>
 </div>
+<pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
+                        class="pagination-sm"></pagination>
 
 </div>
 </div> 

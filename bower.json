@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "angular-route": "^1.6.3",
-    "angular": "angularjs#^1.6.3",
+    "angular": "^1.6.4",
     "angular-load": "^0.4.1",
     "angular-bootstrap": "^2.5.0",
     "international-phone-number": "^0.0.16",

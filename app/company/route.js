@@ -11,7 +11,7 @@ app.post('/api/companylogin', controller.login);
 app.post('/api/company/profile',companyAuth, controller.profileupdate);
 app.get('/api/company/profile/:id',companyAuth, controller.profile);
 
-
+app.get('/api/privateserveys',companyAuth, controller.privateserveys);
 app.get('/api/privateoffers',companyAuth, controller.privateoffers);
 app.post('/api/offer', companyAuth , controller.addoffer);
 

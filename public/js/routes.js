@@ -63,13 +63,25 @@ angular.module("routes", []).config(function($routeProvider, $locationProvider) 
     requireUserLogin: false,
     requireCompanyLogin: true,
     title: 'Add Offer'
-  }).when('/company/offer/:id', {
+  })
+  .when('/company/servey/add', {
+    templateUrl: '/views/company/offer/addservey.html',
+    requireUserLogin: false,
+    requireCompanyLogin: true,
+    title: 'Add Servey'
+  })
+  .when('/company/offer/:id', {
     templateUrl: '/views/offer/index.html',
     requireUserLogin: false,
     requireCompanyLogin: true,
     title: 'View Offer'
   })
-
+.when('/company/servey/:id', {
+    templateUrl: '/views/servey/index.html',
+    requireUserLogin: false,
+    requireCompanyLogin: true,
+    title: 'View Servey'
+  })
   .when('/offer/:id', {
     templateUrl: '/views/offer/index.html',
     requireUserLogin: false,

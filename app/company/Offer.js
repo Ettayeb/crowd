@@ -6,10 +6,14 @@ var OfferSchema = new Schema({
     title      : String,
     _company    : {type: mongoose.Schema.Types.ObjectId, ref: 'Company'},
     type      : String ,
+    category      : String ,
+    price      : String ,
     file       : { type : String },
     ended_at    : Date,
     updated_at : Date,
-    created_at :Date
+    created_at :Date,
+    nested : [{ name : String , votes : Number  }],
+    servey : { type : Boolean , default : false}
     });
 
 OfferSchema.pre("save" , function(next){

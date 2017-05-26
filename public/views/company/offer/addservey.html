@@ -6,31 +6,12 @@
 		<!-- HEADER -->
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
-<section ng-controller="OaddController as vm">
+<section ng-controller="SaddController as vm">
 <div class="container text-center">
-    <h1>Add new offer</h1>
+    <h1>Add new Servey</h1>
 <form ng-submit="vm.submit()" name="formData" ng-model="vm.formData" >
 <div class="form-group col-xs-6 col-xs-offset-3">
     <input type="text"  name="title" ng-model="vm.formData.title" placeholder="Title" required>
-</div>
-<div class="form-group col-xs-6 col-xs-offset-3">
-    <label for="type">Type :</label>
-    <select  name="type" ng-model="vm.formData.type">
-        <option value="" default>Choose..</option>
-        <option value="Postulation-Vote">Postulation-Vote</option>
-        <option value="Postulation">Postulation</option>
-    </select>
-</div>
-<div class="form-group col-xs-6 col-xs-offset-3">
-    <label for="type">Category :</label>
-    <select  name="category" ng-model="vm.formData.category">
-        <option value="" default>Choose..</option>
-        <option value="Developpement">Developpement</option>
-        <option value="Design">Design</option>
-    </select>
-</div>
-<div class="form-group col-xs-6 col-xs-offset-3">
-    <input type="text"  name="price" ng-model="vm.formData.price" placeholder="Price" required>
 </div>
 <div class="form-group col-xs-6 col-xs-offset-3">
         <p class="input-group">
@@ -39,6 +20,12 @@
             <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <a ng-click="vm.addchoice()" class="btn btn-success">Add Choice</a>
+    </br>
+				      <input data-ng-repeat="choice in vm.choices" type="text" ng-model="vm.formData.choice[$index]" placeholder="Choice">
+
 </div>
 
 <div class="form-group col-xs-6 col-xs-offset-3">

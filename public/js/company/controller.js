@@ -85,6 +85,7 @@ angular.module('CompanyCtrl', [])
 
   companyAuth.logout();
   $location.path('/backend/login');
+  
 }).controller('CindController', function(companyAuth) {
   var vm = this;
   companyAuth.getoffers().then(function onSuccess(response) {
@@ -95,6 +96,17 @@ angular.module('CompanyCtrl', [])
   }, function onError(response) {
     vm.error = response.data.message;
   });
+  companyAuth.getserveys().then(function onSuccess(response) {
+    vm.serveys = response.data;
+    console.log(vm.serveys);
+    vm.currentPageS = 1; // keeps track of the current page
+    vm.pageSizeS = 2; // holds the number of items per page
+  }, function onError(response) {
+    vm.error = response.data.message;
+  });
+
+
+
 }).controller('CregController', function(companyAuth, $location) {
 
   this.formData = {};
@@ -123,13 +135,11 @@ angular.module('CompanyCtrl', [])
 
   };
 
-}).controller('OaddController', function(Upload, companyAuth, $location ) {
+}).controller('OaddController', function(Upload, companyAuth, $location , $scope ) {
 
   var vm = this;
-  // something beautiful will be here xD
-  console.log("aaaaaaa");
-
   vm.formData = {};
+  vm.formData.type = "";
   vm.formData._company = companyAuth.currentCompany().id;
   vm.options = {
     language: 'en',
@@ -146,6 +156,12 @@ angular.module('CompanyCtrl', [])
     vm.popup.opened = true;
   };  
 
+
+$scope.$watch(angular.bind(this, function () {
+  return this.formData.type;
+}), function (newVal) {
+  console.log('Name changed to ' + newVal);
+},true);
 
 
   vm.submit = function() {
@@ -169,7 +185,67 @@ angular.module('CompanyCtrl', [])
 
 
 
-}).controller('IndexCatController', function($scope, category) {
+})
+.controller('SaddController', function(Upload, companyAuth, $location) {
+
+  var vm = this;
+  vm.formData = {};
+  vm.formData.choice = [];
+  vm.choices = [];
+  vm.formData.type = "";
+  vm.formData._company = companyAuth.currentCompany().id;
+  vm.options = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+  vm.popup = {
+    opened: false
+  };
+  vm.datepickerOptions = {
+    format: 'yyyy-mm-dd',
+  };
+  vm.open = function() {
+    vm.popup.opened = true;
+  };  
+
+  vm.addchoice = function(){
+
+var newItemNo = vm.choices.length+1;
+vm.choices.push({'id':'choice'+newItemNo});
+
+  };
+    vm.removeChoice = function() {
+    var lastItem = vm.choices.length-1;
+    vm.choices.splice(lastItem);
+};
+  
+  
+  vm.submit = function() {
+  
+    console.log(vm.formData);  
+    Upload.upload({
+      url: '/api/offer',
+      data: vm.formData,
+      headers: {
+        'Authorization': 'Bearer ' + companyAuth.getToken()
+      }, // only for html5
+    }).then(function(resp) {
+      console.log('Success ');
+      $location.path('/company/');
+    }, function(resp) {
+      console.log('Error status: ');
+    }, function(evt) {
+      progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+    });
+  };
+
+
+
+})
+
+.controller('IndexCatController', function($scope, category) {
 
   // something beautiful will be here xD
 

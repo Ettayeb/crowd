@@ -67,6 +67,13 @@ angular.module('CompanyService', []).factory('companyAuth', function($http, $win
       }
     });
   };
+  getserveys = function() {
+    return $http.get('/api/privateserveys', {
+      headers: {
+        Authorization: 'Bearer ' + getToken()
+      }
+    });
+  };
 
 
 
@@ -79,7 +86,8 @@ angular.module('CompanyService', []).factory('companyAuth', function($http, $win
     register: register,
     login: login,
     getoffers: getoffers,
-    profile: profile
+    profile: profile,
+    getserveys: getserveys
 
   };
 

@@ -7,12 +7,25 @@ var storage =   multer.diskStorage({
   filename: function (req, file, callback) {
    var fname = Date.now()+file.originalname;
      var offer = new Offer();
+     if (req.body.choice) {
+      offer.title = req.body.title;
+      for(i = 0 ; i < req.body.choice.length ; i++){
+      offer.nested.push({name : req.body.choice[i] , votes : 0 });
+      }
+      offer.ended_at = req.body.ended_at;
+      offer.file = fname;
+      offer._company = req.body._company;
+      offer.servey = true;
+     }
+     else {
   offer.title = req.body.title;
   offer.type = req.body.type;
+  offer.category = req.body.category;
+  offer.price = req.body.price;
   offer._company = req.body._company;
   offer.file = fname;
   offer.ended_at = req.body.ended_at;
-
+  }
   offer.save(function(err) {
    if (err) {
     res.status(406);
@@ -138,7 +151,27 @@ module.exports.privateoffers =  function (req, res) {
   } else {
     // Otherwise continue
     Offer
-      .find({ _company : req.user._id})
+      .find({ _company : req.user._id , servey : false})
+      .populate('_company')
+      .exec(function(err, offers) {
+        console.log('we are here !!!');
+        res.status(200).json(offers);
+      });
+  }
+
+};
+module.exports.privateserveys =  function (req, res) {
+
+  // If no company ID exists in the JWT return a 401
+
+  if (!req.user._id) {
+     res.status(401).json({
+      "message" : "UnauthorizedError: private data"
+    });
+  } else {
+    // Otherwise continue
+    Offer
+      .find({ _company : req.user._id , servey : true})
       .populate('_company')
       .exec(function(err, offers) {
         console.log('we are here !!!');

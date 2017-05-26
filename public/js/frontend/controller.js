@@ -26,7 +26,37 @@ angular.module('FrontendCtrl', [])
 
 
 
-}).controller('FindController', function(frontend, $location) {
+})
+.controller('SindController', function(frontend, $location) {
+
+  var vm = this;
+  vm.loaded = false;
+
+  frontend.alloffers().then(function onSuccess(response) {
+    vm.offers = response.data;
+    vm.currentPage = 1; // keeps track of the current page
+    vm.pageSize = 8; // holds the number of items per page
+    vm.loaded = true;
+
+
+  },
+
+  function onError(response) {
+    vm.error = response.data.message;
+  });
+vm.submit = function(){
+  if (vm.search !== undefined) {
+    frontend.searcoffers
+    
+  }
+  
+};
+
+
+
+})
+
+.controller('FindController', function(frontend, $location) {
 
   var vm = this;
   vm.loaded = false;
@@ -97,7 +127,7 @@ angular.module('FrontendCtrl', [])
     vm.file = "/uploads/" + vm.offer.file;
     vm.loaded = true;
     console.log(vm.file);
-    if (vm.offer.type == 'vote') {
+    if (vm.offer.type == 'Postulation-Vote') {
       frontend.getapplies($routeParams.id).then(function onSuccess(response) {
         vm.applies = response.data;
         //console.log(vm.applies);              

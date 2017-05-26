@@ -9,11 +9,14 @@
 <section class="one-section" ng-controller="CindController as vm">
 <div class="container">
 	        <a class="btn submit-simple pull-right" href="/company/offer/add">Add New Offer</a>
+	        <a class="btn submit-simple pull-right" href="/company/servey/add">Add New Servey</a>
 
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
         <span class="help-inline" ng-bind="vm.error"></span>
     </div>
-
+<div class="tabs-marge">
+<uib-tabset active="activeForm" justified="true">
+<uib-tab index="0" heading="Offers List" class="spacing" >
 <table class="table" ng-show="vm.offers">
   <thead>
     <tr>
@@ -37,7 +40,7 @@
     </tr>
   </tbody>
 </table>
-            <pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
+<pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
                         class="pagination-sm"></pagination>
 <div class="row text-center" ng-hide="vm.offers">
     <div class="col-12">
@@ -45,7 +48,49 @@
     
     </div>
 </div>
+</uib-tab>
+<uib-tab index="1" heading="Serveys List" class="spacing" >
+	<table class="table" ng-show="vm.serveys">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Title</th>
+      <th>Choices/Votes</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="servey in vm.serveys | start: (vm.currentPageS - 1) * vm.pageSizeS | limitTo: vm.pageSizeS">
+      <th scope="row">{{$index}}</th>
+      <td><a ng-href="/company/offer/{{servey._id}}">{{servey.title}}</a></td>
+      <td>
+		<span ng-repeat="s in servey.nested">
+			{{s.name}} : {{s.votes}}
+		</span>
+	  
+	  
+	  </td>
+      <td>{{servey.created_at | date:'medium'}}</td>
+      <td>{{servey.ended_at | date:'medium'}}</td>
+	  <td><a ng-href="/uploads/{{servey.file}}" target="_blank">Image</a></td>
 
+    </tr>
+  </tbody>
+</table>
+<pagination uib-pagination total-items="vm.serveys.length" items-per-page="vm.pageSizeS" ng-model="vm.currentPageS" max-size="10" 
+                        class="pagination-sm"></pagination>
+<div class="row text-center" ng-hide="vm.serveys">
+    <div class="col-12">
+<h3 class="text-center">You dont have any servey !</h3>
+    
+    </div>
+</div>
+	
+</uib-tab>
+</uib-tabset>
+</div>
 </div> 
     
 </section>
