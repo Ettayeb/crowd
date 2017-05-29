@@ -1,0 +1,62 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+<!-- sections -->
+<section ng-controller="OeditController as vm">
+<div class="container text-center">
+    <h1>Modification d'offre</h1>
+<form ng-submit="vm.submit()" name="formData" ng-model="vm.formData" >
+      <div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="text"  name="title" ng-model="vm.formData.title" placeholder="Titre" required>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <label for="type">Type :</label>
+    <select  name="type" ng-model="vm.formData.type">
+        <option value="Postulation-Vote">Postulation-Vote</option>
+        <option value="Postulation">Postulation</option>
+    </select>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <label for="type">Categorie :</label>
+    <select  name="category" ng-model="vm.formData.category">
+        <option value="Developpement">Developpement</option>
+        <option value="Design">Design</option>
+    </select>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+    <input type="text"  name="price" ng-model="vm.formData.price" placeholder="Price" required>
+</div>
+<div class="form-group col-xs-6 col-xs-offset-3">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="vm.formData.ended_at" is-open="vm.popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="End Date"  required/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+</div>
+
+<div class="form-group col-xs-6 col-xs-offset-3">
+      <input type="file" ngf-select ng-model="vm.formData.file" name="file"    
+             accept="application/pdf" >
+</div>
+<div class="form-group col-xs-4 col-xs-offset-4">
+<input class="btn submit" value="Modifier" type="submit">    
+</div>
+</form>
+</div>
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

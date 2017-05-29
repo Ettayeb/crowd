@@ -287,3 +287,112 @@ module.exports.addoffer = function(req, res) {
 
 };
 
+module.exports.deleteoffer = function(req, res) {
+ 
+ 
+        Offer.findByIdAndRemove(req.params.id , function(err , offer){
+          if(err) {
+         res.status(406);
+    return res.json({
+      "message" : "Error"
+    });
+
+        }
+         res.status(200);
+    return res.json({
+      "message" : "Success"
+    });
+        
+
+
+
+    });    
+  
+
+};
+
+
+// ****
+
+var updateoffer_storage =   multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './public/uploads');
+  },
+  filename: function (req, file, callback) {
+   var fname = Date.now()+file.originalname;
+    callback(null,fname);
+  }
+});
+
+var update_offer = multer({ storage : updateoffer_storage}).single('file');
+
+
+// ****
+
+
+
+
+
+module.exports.updateoffer = function(req, res ) {
+        update_offer(req,res,function(err) {
+        if(err) {
+         res.status(406);
+    return res.json({
+      "message" : "Vefiry your Data please"
+    });
+
+        }
+      Offer.findById(req.params.id)
+      .exec(function(err, offer) {
+        if (err) return res.status(401).json({
+      "message" : err
+      });
+      console.log(offer);
+     if (offer.servey === true) {
+      offer.title = req.body.title;
+      console.log(req.body.nested);
+      for(i = 0 ; i < req.body.nested.length ; i++){
+        if (offer.nested[i]) {
+      offer.nested[i].name = req.body.nested[i].name;
+      }
+      else {
+        offer.nested.push({ name : req.body.nested[i].name });
+      }
+      }
+      offer.ended_at = req.body.ended_at;
+        offer.file = req.file && req.file.filename || offer.file;
+     }
+     else {
+  offer.title = req.body.title;
+  offer.type = req.body.type;
+  offer.category = req.body.category;
+  offer.price = req.body.price;
+  offer.file = req.file && req.file.filename || offer.file;
+  offer.ended_at = req.body.ended_at;
+  }
+  offer.save(function(err) {
+   if (err) {
+    res.status(406);
+    return res.json({
+      "message" : "There is a problem contact the webmaster please"
+    });
+
+      
+   }
+  });
+
+        
+         res.status(200);
+    return res.json({
+      "message" : "Success upload"
+    });
+        
+
+
+
+    });    
+  
+
+});
+
+};

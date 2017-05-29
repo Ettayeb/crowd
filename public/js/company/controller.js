@@ -3,7 +3,135 @@ angular.module('CompanyCtrl', [])
 
 // controllers are here
 
-.controller('CprofileController', function(companyAuth, common, Upload, $location) {
+.controller('OeditController', function(companyAuth, frontend, $routeParams, common, Upload, $location) {
+
+  var vm = this;
+  vm.alerts = [];
+  frontend.singleoffer($routeParams.id).then(function onSuccess(resp) {
+    vm.formData = resp.data;
+    vm.formData.ended_at = new Date(vm.formData.ended_at);
+  }, function onError(resp) {
+    vm.alerts.push({
+      type: "danger",
+      msg: "There is a problem loading your data.. Please contact the webmaster"
+    });
+  });
+
+  vm.options = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+  vm.popup = {
+    opened: false
+  };
+  vm.datepickerOptions = {
+    format: 'yyyy-mm-dd',
+  };
+  vm.open = function() {
+    vm.popup.opened = true;
+  };
+
+
+  vm.submit = function() {
+    Upload.upload({
+      url: '/api/offer/' + vm.formData._id,
+      method: 'PUT',
+      data: vm.formData,
+      headers: {
+        'Authorization': 'Bearer ' + companyAuth.getToken()
+      }, // only for html5
+    }).then(function(resp) {
+      vm.alerts.push({
+        type: "success",
+        msg: "Your data changed with success"
+      });
+    }, function(resp) {
+      vm.alerts.push({
+        type: "danger",
+        msg: "There is a problem loading your data.. Please contact the webmaster"
+      });
+    });
+
+  };
+
+
+
+
+
+
+
+}).controller('SeditController', function(companyAuth, frontend, $routeParams, common, Upload, $location) {
+
+  var vm = this;
+
+  vm.alerts = [];
+  frontend.singleoffer($routeParams.id).then(function onSuccess(resp) {
+    vm.formData = resp.data;
+    vm.choices = vm.formData.nested;
+    vm.formData.ended_at = new Date(vm.formData.ended_at);
+  }, function onError(resp) {
+    vm.alerts.push({
+      type: "danger",
+      msg: "There is a problem loading your data.. Please contact the webmaster"
+    });
+  });
+  vm.addchoice = function() {
+
+    var newItemNo = vm.choices.length + 1;
+    vm.choices.push({
+      'id': 'choice' + newItemNo
+    });
+
+  };
+
+
+
+  vm.options = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+  vm.popup = {
+    opened: false
+  };
+  vm.datepickerOptions = {
+    format: 'yyyy-mm-dd',
+  };
+  vm.open = function() {
+    vm.popup.opened = true;
+  };
+
+
+  vm.submit = function() {
+    Upload.upload({
+      url: '/api/offer/' + vm.formData._id,
+      method: 'PUT',
+      data: vm.formData,
+      headers: {
+        'Authorization': 'Bearer ' + companyAuth.getToken()
+      }, // only for html5
+    }).then(function(resp) {
+      vm.alerts.push({
+        type: "success",
+        msg: "Your data changed with success"
+      });
+    }, function(resp) {
+      vm.alerts.push({
+        type: "danger",
+        msg: "There is a problem loading your data.. Please contact the webmaster"
+      });
+    });
+
+  };
+
+
+
+
+
+
+
+}).controller('CprofileController', function(companyAuth, common, Upload, $location) {
 
   var vm = this;
   vm.formData = {};
@@ -80,14 +208,9 @@ angular.module('CompanyCtrl', [])
 
   };
 
-}).controller('LogOutController', function($scope, companyAuth, $location) {
-
-
-  companyAuth.logout();
-  $location.path('/backend/login');
-  
-}).controller('CindController', function(companyAuth) {
+}).controller('CindController', function(companyAuth, $route) {
   var vm = this;
+  vm.alerts = [];
   companyAuth.getoffers().then(function onSuccess(response) {
     vm.offers = response.data;
     console.log(vm.offers);
@@ -105,7 +228,22 @@ angular.module('CompanyCtrl', [])
     vm.error = response.data.message;
   });
 
+  vm.remove = function(id) {
+    companyAuth.deleteoffer(id).then(function(resp) {
+      vm.alerts.push({
+        type: "success",
+        msg: "Votre offre a été supprimé avec succés"
+      });
+      $route.reload();
+    }, function(resp) {
+      vm.alerts.push({
+        type: "danger",
+        msg: "There is a problem loading your data.. Please contact the webmaster"
+      });
+    });
 
+
+  };
 
 }).controller('CregController', function(companyAuth, $location) {
 
@@ -135,7 +273,7 @@ angular.module('CompanyCtrl', [])
 
   };
 
-}).controller('OaddController', function(Upload, companyAuth, $location , $scope ) {
+}).controller('OaddController', function(Upload, companyAuth, $location, $scope) {
 
   var vm = this;
   vm.formData = {};
@@ -154,14 +292,8 @@ angular.module('CompanyCtrl', [])
   };
   vm.open = function() {
     vm.popup.opened = true;
-  };  
+  };
 
-
-$scope.$watch(angular.bind(this, function () {
-  return this.formData.type;
-}), function (newVal) {
-  console.log('Name changed to ' + newVal);
-},true);
 
 
   vm.submit = function() {
@@ -185,8 +317,7 @@ $scope.$watch(angular.bind(this, function () {
 
 
 
-})
-.controller('SaddController', function(Upload, companyAuth, $location) {
+}).controller('SaddController', function(Upload, companyAuth, $location) {
 
   var vm = this;
   vm.formData = {};
@@ -207,23 +338,20 @@ $scope.$watch(angular.bind(this, function () {
   };
   vm.open = function() {
     vm.popup.opened = true;
-  };  
+  };
 
-  vm.addchoice = function(){
+  vm.addchoice = function() {
 
-var newItemNo = vm.choices.length+1;
-vm.choices.push({'id':'choice'+newItemNo});
+    var newItemNo = vm.choices.length + 1;
+    vm.choices.push({
+      'id': 'choice' + newItemNo
+    });
 
   };
-    vm.removeChoice = function() {
-    var lastItem = vm.choices.length-1;
-    vm.choices.splice(lastItem);
-};
-  
-  
+
   vm.submit = function() {
-  
-    console.log(vm.formData);  
+
+    console.log(vm.formData);
     Upload.upload({
       url: '/api/offer',
       data: vm.formData,
@@ -340,55 +468,6 @@ vm.choices.push({'id':'choice'+newItemNo});
     $scope.categories = res.data;
   });
 
-
-
-}).controller('UploadFile', function($scope, File, $window) {
-  //debug
-
-  var vm = this;
-  vm.submit = function() { //function to call on form submit
-    if (vm.upload_form.file.$valid && vm.file) { //check if from is valid
-      vm.upload(vm.file); //call upload function
-    }
-  };
-  vm.upload = function(file) {
-    File.upload(file).then(function(resp) { //upload function returns a promise
-      if (resp.data.error_code === 0) { //validate success
-        vm.success = 'File ' + resp.config.data.file.name + ' uploaded with success !';
-        $window.location.reload();
-      } else {
-        vm.error = 'an error occured';
-      }
-    }, function(resp) { //catch error
-      console.log('Error status: ' + resp.status);
-      $window.alert('Error status: ' + resp.status);
-    }, function(evt) {
-      console.log(evt);
-      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-      vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
-    });
-  };
-}).controller('Files', function($scope, File) {
-  //debug
-  File.getfiles().error(function() {
-    $scope.error = 'there is a problem with getting files';
-  }).then(function(res) {
-    $scope.files = res.data;
-
-  });
-
-
-}).controller('RemoveFile', function($scope, File, $routeParams, $location) {
-  //debug
-  File.remove($routeParams.id).error(function() {
-    $scope.error = 'there is a problem with removing this file';
-  }).then(function(res) {
-    //
-    $scope.success = res.data.message;
-    $location.path('/backend/files');
-
-  });
 
 
 });

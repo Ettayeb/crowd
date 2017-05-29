@@ -75,6 +75,14 @@ angular.module('CompanyService', []).factory('companyAuth', function($http, $win
     });
   };
 
+  deleteoffer = function(id) {
+    return $http.delete('/api/offer/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + getToken()
+      }
+    });
+  };
+
 
 
   return {
@@ -87,7 +95,8 @@ angular.module('CompanyService', []).factory('companyAuth', function($http, $win
     login: login,
     getoffers: getoffers,
     profile: profile,
-    getserveys: getserveys
+    getserveys: getserveys,
+    deleteoffer : deleteoffer
 
   };
 

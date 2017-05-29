@@ -71,13 +71,13 @@ angular.module("routes", []).config(function($routeProvider, $locationProvider) 
     title: 'Add Servey'
   })
   .when('/company/offer/:id', {
-    templateUrl: '/views/offer/index.html',
+    templateUrl: '/views/company/offer/edit.html',
     requireUserLogin: false,
     requireCompanyLogin: true,
-    title: 'View Offer'
+    title: 'Edit Offer'
   })
 .when('/company/servey/:id', {
-    templateUrl: '/views/servey/index.html',
+    templateUrl: '/views/company/offer/editservey.html',
     requireUserLogin: false,
     requireCompanyLogin: true,
     title: 'View Servey'
@@ -87,29 +87,6 @@ angular.module("routes", []).config(function($routeProvider, $locationProvider) 
     requireUserLogin: false,
     requireCompanyLogin: false,
     title: 'Offer'
-  })
-
-  .when('/entreprise/logout', {
-    controller: 'LogOutController',
-    templateUrl: '/views/backend/private/logout.html',
-    requireLogin: false
-  }).when('/entreprise', {
-    templateUrl: '/views/backend/private/index.html',
-    requireLogin: true
-  }).when('/entreprise/categories', {
-    templateUrl: '/views/backend/private/category/index.html',
-    requireLogin: true
-  }).when('/entreprise/categories/add', {
-    templateUrl: '/views/backend/private/category/add.html',
-    controller: 'CategoryController',
-    requireLogin: true
-  }).when('/entreprise/categories/remove/:id', {
-    templateUrl: '/views/backend/private/category/remove.html',
-    requireLogin: true
-  }).when('/entreprise/categories/edit/:id', {
-    templateUrl: '/views/backend/private/category/edit.html',
-    controller: 'EditCategory',
-    requireLogin: true
   })
   // articles routes
   .when('/entreprise/articles', {

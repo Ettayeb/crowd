@@ -12,7 +12,7 @@ var OfferSchema = new Schema({
     ended_at    : Date,
     updated_at : Date,
     created_at :Date,
-    nested : [{ name : String , votes : Number  }],
+    nested : [{ name : String , votes : {type : Number , default : 0 }  }],
     servey : { type : Boolean , default : false}
     });
 

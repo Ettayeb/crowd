@@ -15,6 +15,7 @@
         <span class="help-inline" ng-bind="vm.error"></span>
     </div>
 <div class="tabs-marge">
+<div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
 <uib-tabset active="activeForm" justified="true">
 <uib-tab index="0" heading="Offers List" class="spacing" >
 <table class="table" ng-show="vm.offers">
@@ -26,6 +27,7 @@
       <th>Start Date</th>
       <th>End Date</th>
       <th>File</th>
+	  <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -36,7 +38,9 @@
       <td>{{offer.created_at | date:'medium'}}</td>
       <td>{{offer.ended_at | date:'medium'}}</td>
 	  <td><a ng-href="/uploads/{{offer.file}}" target="_blank">File</a></td>
-
+	  <td><a class="btn btn-primary" href="/company/offer/{{offer._id}}"><i class="fa fa-pencil"></i></a>
+		  <a class="btn btn-danger" ng-click="vm.remove(offer._id)"><i class="fa fa-trash-o fa-fw"></i></a>
+	  </td>
     </tr>
   </tbody>
 </table>
@@ -59,6 +63,8 @@
       <th>Start Date</th>
       <th>End Date</th>
       <th>Image</th>
+      <th>Actions</th>
+
     </tr>
   </thead>
   <tbody>
@@ -75,7 +81,9 @@
       <td>{{servey.created_at | date:'medium'}}</td>
       <td>{{servey.ended_at | date:'medium'}}</td>
 	  <td><a ng-href="/uploads/{{servey.file}}" target="_blank">Image</a></td>
-
+	  <td><a class="btn btn-primary" href="/company/servey/{{servey._id}}"><i class="fa fa-pencil"></i></a>
+		<a class="btn btn-danger" ng-click="vm.remove(servey._id)"><i class="fa fa-trash-o fa-fw"></i></a>
+	  </td>
     </tr>
   </tbody>
 </table>

@@ -27,11 +27,12 @@ angular.module('FrontendCtrl', [])
 
 
 })
-.controller('SindController', function(frontend, $location) {
+.controller('SindController', function(frontend, $location , $window) {
 
   var vm = this;
   vm.loaded = false;
-
+  vm.newdate = new Date();
+  vm.Math = $window.Math;
   frontend.alloffers().then(function onSuccess(response) {
     vm.offers = response.data;
     vm.currentPage = 1; // keeps track of the current page
@@ -44,9 +45,18 @@ angular.module('FrontendCtrl', [])
   function onError(response) {
     vm.error = response.data.message;
   });
+  
+  vm.percentage = function(end , start){
+        today = new Date();
+        e = new Date(end);
+        s = new Date(start);
+        p = Math.round(((today - s) / (e - s)) * 100);
+        return p;
+  };
+  
 vm.submit = function(){
   if (vm.search !== undefined) {
-    frontend.searcoffers
+    frontend.searcoffers;
     
   }
   

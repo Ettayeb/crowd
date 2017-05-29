@@ -9,9 +9,13 @@
 <section class="one-section" ng-controller="OindController as vm">
 
 <div class="container form">
-	
-	<div class="row">
+
+<uib-tabset active="activeForm" justified="true">
+<uib-tab index="0" heading="Details" class="spacing" >
+
+	<div class="row margin-top">
 		<div class="col-md-3 whiteblock">
+			<a ng-hide="!vm.app" class="btn submit" href="/user/login" >Login to Apply</a>
 			<button ng-show="!vm.app" class="btn submit" ng-click="vm.open()" >Apply</button>
 <div class="data">
 			<h3 class="h3-margin"><span class="blue-title"> <i class="fa fa-folder-open-o icon" aria-hidden="true"></i> Offer title </span></br>  <span class="simple-text">  {{vm.offer.title}} </span></h3>
@@ -31,7 +35,24 @@
 		
 		
 		
-	</div> 
+	</div>
+</uib-tab>
+<uib-tab index="1" heading="Reglements" class="spacing" >
+		<div class="row margin-top">
+			<div class="col-md-6">
+<ul><li>Do not post any personal information in your creation (name, phone number, email address, etc.)</li>
+<li>Keep your computer a non-compressed version of your creation, which will be used if you are selected as a winner.</li>
+<li>In order to compete, your media should be your own creation.</li>
+<li>You must obtain written permission from each of the authors and actors who participated in the media.</li>
+<li>Specify in the description of your media if you are not the author or music and / or images used. If you used the elements (music, photos, drawings, etc.) you are not the owner, send us the information about the license granting you the rights to use.</li>
+<li>Pub-Lik&nbsp;ask you to provide written proof or a copy of all written documents supporting such authorizations and allowing Pub-Likand its customers to use the media in accordance with the General Conditions of the contest.</li>
+<li>Any media that do not comply with this regulation will be disqualified.</li>
+</ul>
+</div>
+		
+	</div>
+</uib-tab>
+</uib-tabset>
 <div class="row text-center" ng-hide="vm.offer">
     <div class="col-12">
 <h3 class="text-center">{{vm.error}}</h3>
