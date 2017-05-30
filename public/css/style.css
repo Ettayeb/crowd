@@ -876,11 +876,19 @@ header {
 .logo a span.b5 {font-weight:100;}
 
 
+.list-logo img {
+    
+    width:9%;
+    
+}
 
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+    background-color: #4eaff6;
+}
 
 /* __________ Menu __________ */
 .menu_block {
-	position:relative;
+	position:fixed;
 	z-index:10000;
 	left:0;
 	top:0;

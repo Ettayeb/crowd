@@ -42,6 +42,11 @@ angular.module("routes", []).config(function($routeProvider, $locationProvider) 
     requireUserLogin: false,
     requireCompanyLogin: false,
     title: 'Offers'
+  }).when('/serveys', {
+    templateUrl: 'views/serveys.html',
+    requireUserLogin: false,
+    requireCompanyLogin: false,
+    title: 'Serveys'
   })
   .when('/company/login', {
     templateUrl: '/views/company/login.html',

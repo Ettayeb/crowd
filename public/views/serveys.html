@@ -5,7 +5,7 @@
 		<!-- HEADER -->
 <header ng-include="'views/partials/header.html'"></header>
 <!-- sections -->
-<section class="one-section" ng-controller="SindController as vm" >
+<section class="one-section" ng-controller="ServeyindController as vm" >
 <div ng-hide="vm.loaded" class="preloader">
 </div>
 <div ng-hide="!vm.loaded">
@@ -19,39 +19,38 @@
 </div>
 </div>
 <div class="row">
-		<div class="col-md-3" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
+		<div class="col-md-3" ng-repeat="servey in vm.serveys | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
 			<div class="thumbnail" style="padding: 0">
 				<div style="padding:4px">
 					<img alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
 			    </div>
             <div class="caption">
-              <h3>{{offer.title}}</h3>
-              <p> {{  offer.category}} </p>
-              <p>  <i class="fa fa-university"></i>  {{  offer._company.name}}</p>
+              <h3>{{servey.title}}</h3>
+              <p> {{  servey.category}} </p>
+              <p>  <i class="fa fa-university"></i>  {{  servey._company.name}}</p>
             </div>
             <div class="modal-footer" style="text-align: left">
               <div class="progress">
-				<uib-progressbar class="progress-striped" max="100" value="vm.percentage(offer.ended_at , offer.created_at)" type="primary">{{vm.percentage(offer.ended_at , offer.created_at)}}%</uib-progressbar>
+				<uib-progressbar class="progress-striped" max="100" value="vm.percentage(servey.ended_at , servey.created_at)" type="primary">{{vm.percentage(servey.ended_at , servey.created_at)}}%</uib-progressbar>
                 </div>
               </div>
               <div class="row" style="margin:7px;">
-                <div class="col-md-4"><b>{{vm.percentage(offer.ended_at , offer.created_at)}} %</b><br/><small>Expired</small></div>
-                <div class="col-md-4"><b>{{offer.price}}</b><br/><small>Price</small></div>
+                <div class="col-md-4"><b>{{vm.percentage(servey.ended_at , servey.created_at)}} %</b><br/><small>Expired</small></div>
+                <div class="col-md-4"><b>{{servey.price}}</b><br/><small>Price</small></div>
               </div>
             </div>
           </div>
 </div>
-<div class="row text-center" ng-hide="vm.offers">
+<div class="row text-center" ng-hide="vm.serveys">
     <div class="col-12">
-<h3 class="text-center">There is no offers for now !</h3>
+<h3 class="text-center">There is no serveys for now !</h3>
     </div>
 </div>
-<pagination uib-pagination total-items="vm.offers.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
+<pagination uib-pagination total-items="vm.serveys.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
                         class="pagination-sm"></pagination>
 
 	</div>
 	</div>
-    
 </section>
 
 

@@ -27,6 +27,52 @@ angular.module('FrontendCtrl', [])
 
 
 })
+.controller('ServeyindController', function(frontend, $location , $window) {
+
+  var vm = this;
+  vm.loaded = false;
+  vm.newdate = new Date();
+  vm.Math = $window.Math;
+  frontend.allserveys().then(function onSuccess(response) {
+    vm.serveys = response.data;
+    vm.currentPage = 1; // keeps track of the current page
+    vm.pageSize = 8; // holds the number of items per page
+    vm.loaded = true;
+
+
+  },
+
+  function onError(response) {
+    vm.error = response.data.message;
+  });
+  
+  vm.percentage = function(end , start){
+        today = new Date();
+        e = new Date(end);
+        s = new Date(start);
+        p = Math.round(((today - s) / (e - s)) * 100);
+        return p;
+  };
+  
+vm.submit = function(){
+    console.log(vm.search);
+  if (vm.search !== undefined) {
+    frontend.search(vm.search)
+    .then(function onSuccess(resp){
+      vm.serveys = resp.data;
+      
+    }, function onError(){
+      
+      });
+    
+  }
+  
+};
+
+
+
+})
+
 .controller('SindController', function(frontend, $location , $window) {
 
   var vm = this;
@@ -55,8 +101,15 @@ angular.module('FrontendCtrl', [])
   };
   
 vm.submit = function(){
+    console.log(vm.search);
   if (vm.search !== undefined) {
-    frontend.searcoffers;
+    frontend.search(vm.search)
+    .then(function onSuccess(resp){
+      vm.offers = resp.data;
+      
+    }, function onError(){
+      
+      });
     
   }
   
@@ -65,6 +118,7 @@ vm.submit = function(){
 
 
 })
+
 
 .controller('FindController', function(frontend, $location) {
 
@@ -77,13 +131,21 @@ vm.submit = function(){
   vm.noWrapSlides = false;
   vm.active = 0;
   vm.slides.push({
-    image: '/images/im1.jpg',
-    text: ['Nice image', 'Awesome photograph', 'That is so cool', 'I love that'][vm.slides.length % 4],
+    image: '/images/slide1.jpg',
     id: currIndex++,
-    MainText: 'BOOTSTRAP CAROUSEL MAKER',
-    SubText: 'some text'
+    MainText: 'Bienvenue sur le plus grand terrain de jeu créatif du monde !',
+    SubText: 'Khedmti est une communauté mondiale de créateurs talentueux qui aiment résoudre les défis de marques grâce à des idées créatives et du contenu de qualité.'
   });
 
+    vm.percentage = function(end , start){
+        today = new Date();
+        e = new Date(end);
+        s = new Date(start);
+        p = Math.round(((today - s) / (e - s)) * 100);
+        return p;
+  };
+
+  
   frontend.alloffers().then(function onSuccess(response) {
     vm.offers = response.data;
     vm.currentPage = 1; // keeps track of the current page
@@ -95,6 +157,15 @@ vm.submit = function(){
 
   function onError(response) {
     vm.error = response.data.message;
+  });
+
+  frontend.counter()
+.then(function onSuccess(response) {
+    vm.counter = response.data;
+
+  },
+
+  function onError(response) {
   });
 
 

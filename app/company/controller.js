@@ -185,7 +185,7 @@ module.exports.alloffers =  function (req, res) {
 
 date = new Date();
     Offer
-      .find({ended_at : { $gt : date} })
+      .find({ended_at : { $gt : date} , servey : false })
       .populate('_company')
       .exec(function(err, offers) {
         if (err)
@@ -193,9 +193,47 @@ date = new Date();
 
         res.status(200).json(offers);
       });
+};
+
+var User = require('../user/User');
+
+
+module.exports.counter =  function (req, res) {
+
+    var counter = {offers : 0 , companies : 0 , candidates : 0};
+    Offer.count({}, function( err, count){
+    counter.offers = count;
+});
+    Company.count({}, function( err, count){
+    counter.companies = count;
+});
+    User.count({}, function( err, count){
+    counter.candidates = count;
+});
+      console.log(counter);
+
+return res.status(200).json(counter);
+
+};
+
+
+
+module.exports.allserveys =  function (req, res) {
+
+date = new Date();
+    Offer
+      .find({ended_at : { $gt : date} , servey : true })
+      .populate('_company')
+      .exec(function(err, serveys) {
+        if (err)
+        return res.status(406).json({'message' : 'Error : Contact the webmaster please .'});
+
+        res.status(200).json(serveys);
+      });
 
 
 };
+
 module.exports.singleoffer =  function (req, res) {
 
     Offer
@@ -308,6 +346,26 @@ module.exports.deleteoffer = function(req, res) {
 
     });    
   
+
+};
+
+module.exports.searchoffer = function(req, res) {
+ 
+ 
+ 
+ Offer.find({$text: {$search: req.body.search} , servey : false})
+       .exec(function(err, offers) {
+        if(err) {
+         res.status(406);
+    return res.json({
+      "message" : "Error"
+    });
+
+        }
+         res.status(200);
+    return res.json(offers);
+
+        });
 
 };
 

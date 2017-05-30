@@ -25,14 +25,12 @@
     <a ng-click="vm.addchoice()" class="btn btn-success">Add Choice</a>
     </br>
 				      <input data-ng-repeat="choice in vm.choices" type="text" ng-model="vm.formData.choice[$index]" placeholder="Choice">
-
 </div>
 
 <div class="form-group col-xs-6 col-xs-offset-3">
       <input type="file" ngf-select ng-model="vm.formData.file" name="file"    
-             accept="application/pdf" required>
+             accept="image/*" required>
 </div>
-
 
     <div class="control-group col-xs-6 col-xs-offset-3 text-danger" >
         <span class="help-inline" ng-bind="vm.error"></span>

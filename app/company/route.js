@@ -18,7 +18,11 @@ app.put('/api/offer/:id',companyAuth, controller.updateoffer);
 app.delete('/api/offer/:id',companyAuth, controller.deleteoffer);
 
 
+app.post('/api/searchoffer' , controller.searchoffer);
 
+app.get('/api/counter' , controller.counter);
+
+app.get('/api/serveys' , controller.allserveys);
 app.get('/api/offers' , controller.alloffers);
 app.get('/api/offer/:id' , controller.singleoffer);
 

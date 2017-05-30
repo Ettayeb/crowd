@@ -17,16 +17,28 @@ angular.module('FrontendService', []).factory('frontend', function ($http, $wind
       return $http.get('/api/applies/' + id) ;
 
     };
-        
+    search = function(search){
+      return $http.post('/api/searchoffer/' , { 'search' : search }) ;
+    
+    };
+    allserveys = function() {
+      return $http.get('/api/serveys') ;
+    };
+    counter = function() {
+      return $http.get('/api/counter') ;
+    };
+
+
     
     return {
       alloffers : alloffers,
       singleoffer : singleoffer,
       apply : apply,
-      getapplies : getapplies
+      getapplies : getapplies,
+      search : search,
+      allserveys : allserveys,
+      counter : counter
 
-
-      
       };
  
 

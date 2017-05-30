@@ -15,10 +15,12 @@
 <div ng-hide="!vm.loaded">
 <div class="carousel-home" uib-carousel active="active" interval="vm.myInterval" nowrap="vm.noWrapSlides">
     <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id" >
-        <img ng-src=" {{slide.image}}" style="margin: auto;" >
-        <div class="carousel-caption">
-            <h1>Slide {{slide.MainText}}</h1>
+        <img ng-src=" {{slide.image}}" style="margin: auto; height:500px;width:100%" >
+        <div class="carousel-caption" style="">
+            <h1 style="color:white;">{{slide.MainText}}</h1>
             <p>{{slide.SubText}}</p>
+            <p><a class="btn submit-simple" href="/company">Espace Entreprise</a><a href="/user" class="btn submit-simple">Espace Candidature</a></p>
+
         </div>
 </div>
 </div>
@@ -28,33 +30,34 @@
     </div>
 
 <div class="row spacing">
-	<div class="col-xs-12 col-md-12">
+	<div class="col-xs-12 col-md-12 text-center">
 		<h2>Recent Offers</h2>
 	</div>
 </div>
 <div id="products" class="row list-group" ng-show="vm.offers.length > 0">
-                     <div class="item col-xs-3 col-lg-3" ng-repeat="offer in vm.offers | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize"> 
-                     <div class="thumbnail">
-                         <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                         <div class="caption">
-                             <h4 class=" text center group inner list-group-item-heading">{{offer.title}}</h4> 
-                             <p class="group inner list-group-item-text">
-							 <h6 class="type-italic">{{offer.type}}</h6>
-					  
-				      <h6> <i class="fa fa-calendar"> Start date : </i> {{offer.created_at | date:'medium'}} </h6>
-				      <h6>  <i class="fa fa-calendar"> End date : </i>  {{offer.ended_at | date:'medium'}}</h6>					
-
-							 
-							 </p>
-						 </div>
-                             <div class="row"> 
-                                <div class="col-xs-12 col-md-12">
-                                     <a class="btn submit btn-crowd" ng-href="/offer/{{offer._id}}">Read more</a>
-                                </div>
-                                </div>
-
-				</div>
-		</div>
+		<div class="col-md-3" ng-repeat="offer in vm.offers | limitTo: 4">
+			<a href="/offer/{{offer._id}}">
+			<div class="thumbnail" style="padding: 0">
+				<div style="padding:4px">
+					<img alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
+			    </div>
+            <div class="caption">
+              <h3>{{offer.title}}</h3>
+              <p> {{  offer.category}} </p>
+              <p>  <i class="fa fa-university"></i>  {{  offer._company.name}}</p>
+            </div>
+            <div class="modal-footer" style="text-align: left">
+              <div class="progress">
+				<uib-progressbar class="progress-striped" max="100" value="vm.percentage(offer.ended_at , offer.created_at)" type="primary">{{vm.percentage(offer.ended_at , offer.created_at)}}%</uib-progressbar>
+                </div>
+              </div>
+              <div class="row" style="margin:7px;">
+                <div class="col-md-4"><b>{{vm.percentage(offer.ended_at , offer.created_at)}} %</b><br/><small>Expired</small></div>
+                <div class="col-md-4"><b>{{offer.price}}</b><br/><small>Price</small></div>
+              </div>
+            </div>
+			</a>
+          </div>
 					                              <div class="row"> 
                                 <div class="col-xs-12 col-md-12 text-center">
                                      <a class="btn submit normal-button" ng-href="/offers">All Offers</a>
@@ -65,13 +68,13 @@
 </div>
 <div class="row index-list text-center">
 <span class="text-left list">
-+ 1000 Candidatures
++ {{vm.counter.candidates}} Candidatures
     </span>
 <span class="text-center list">
-+ 1000 Offres
++ {{vm.counter.offers}} Offres
 </span>
 <span class="text-right list">
-+ 1000 Entreprises
++ {{vm.counter.companies}} Entreprises
     </span>
 </div>
 
@@ -92,9 +95,9 @@
 <section>
 	
 	<div class="presentation-steps" id="home-steps">
-<div class="presentation-container row-fluid">
+<div class="presentation-container row">
 <h1>Comment ça marche&nbsp;?</h1>
-<div class="span12 group-4-steps">
+<div class="col-md-12 group-4-steps">
 <div class="step step1">
 <h4>Tout commence par un concours créatif</h4>
 <p>eYeka s'associe à des marques pour transformer n'importe quel défi de marketing ou de communication en un concours créatif stimulant avec de fortes récompenses à la clef.</p>
@@ -122,6 +125,7 @@
 </section>
 <section>
 	<div class="row index-logo text-center">
+		<h1 style="margin-top: -20px;margin-bottom: 50px;color:white;">Nos Sponsores</h1>
 <span class="text-left list-logo">
 <img src="/images/logo1.png">
     </span>
@@ -131,6 +135,13 @@
 <span class="text-right list-logo">
 <img src="/images/logo3.png">
     </span>
+<span class="text-right list-logo">
+<img src="/images/logo4.png">
+    </span>
+<span class="text-right list-logo">
+<img src="/images/logo5.png">
+    </span>
+
 </div>
 </section>
 

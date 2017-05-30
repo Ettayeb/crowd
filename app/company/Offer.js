@@ -15,6 +15,7 @@ var OfferSchema = new Schema({
     nested : [{ name : String , votes : {type : Number , default : 0 }  }],
     servey : { type : Boolean , default : false}
     });
+OfferSchema.index({'$**': 'text'});
 
 OfferSchema.pre("save" , function(next){
    var date = Date();
