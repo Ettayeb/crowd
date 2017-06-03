@@ -20,13 +20,15 @@
 </div>
 <div class="row">
 		<div class="col-md-3" ng-repeat="servey in vm.serveys | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
+		<a href="/servey/{{servey._id}}">
 			<div class="thumbnail" style="padding: 0">
 				<div style="padding:4px">
-					<img alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
+					<img ng-if="!servey.file" alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
+					<img ng-if="servey.file" alt="300x200" style="width: 100%" src="/uploads/{{servey.file}}">
 			    </div>
             <div class="caption">
               <h3>{{servey.title}}</h3>
-              <p> {{  servey.category}} </p>
+              <p> {{servey.category}} </p>
               <p>  <i class="fa fa-university"></i>  {{  servey._company.name}}</p>
             </div>
             <div class="modal-footer" style="text-align: left">
@@ -34,11 +36,8 @@
 				<uib-progressbar class="progress-striped" max="100" value="vm.percentage(servey.ended_at , servey.created_at)" type="primary">{{vm.percentage(servey.ended_at , servey.created_at)}}%</uib-progressbar>
                 </div>
               </div>
-              <div class="row" style="margin:7px;">
-                <div class="col-md-4"><b>{{vm.percentage(servey.ended_at , servey.created_at)}} %</b><br/><small>Expired</small></div>
-                <div class="col-md-4"><b>{{servey.price}}</b><br/><small>Price</small></div>
-              </div>
             </div>
+		</a>
           </div>
 </div>
 <div class="row text-center" ng-hide="vm.serveys">

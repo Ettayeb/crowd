@@ -20,7 +20,10 @@ app.delete('/api/offer/:id',companyAuth, controller.deleteoffer);
 
 app.post('/api/searchoffer' , controller.searchoffer);
 
-app.get('/api/counter' , controller.counter);
+app.get('/api/counter/:variable' , controller.counter);
+app.get('/api/vote/:sid/:cid' , controller.vote);
+
+
 
 app.get('/api/serveys' , controller.allserveys);
 app.get('/api/offers' , controller.alloffers);

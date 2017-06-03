@@ -4,7 +4,7 @@ angular.module('FrontendCtrl', [])
 // controllers are here
 
 
-.controller('navCtrl', function(frontend, $location, userAuth, companyAuth) {
+.controller('navCtrl', function(frontend, $window , $location, userAuth, companyAuth) {
 
   var vm = this;
   vm.userloggedin = userAuth.isLoggedIn();
@@ -14,6 +14,7 @@ angular.module('FrontendCtrl', [])
 
     companyAuth.logout();
     $location.path('/');
+    $window.location.reload();    
 
   };
 
@@ -21,6 +22,7 @@ angular.module('FrontendCtrl', [])
 
     userAuth.logout();
     $location.path('/');
+    $window.location.reload();    
 
   };
 
@@ -64,15 +66,9 @@ vm.submit = function(){
     }, function onError(){
       
       });
-    
   }
-  
 };
-
-
-
 })
-
 .controller('SindController', function(frontend, $location , $window) {
 
   var vm = this;
@@ -119,7 +115,6 @@ vm.submit = function(){
 
 })
 
-
 .controller('FindController', function(frontend, $location) {
 
   var vm = this;
@@ -133,7 +128,7 @@ vm.submit = function(){
   vm.slides.push({
     image: '/images/slide1.jpg',
     id: currIndex++,
-    MainText: 'Bienvenue sur le plus grand terrain de jeu créatif du monde !',
+    MainText: 'Bienvenue sur le plus grand terrain de jeu créatif !',
     SubText: 'Khedmti est une communauté mondiale de créateurs talentueux qui aiment résoudre les défis de marques grâce à des idées créatives et du contenu de qualité.'
   });
 
@@ -159,15 +154,33 @@ vm.submit = function(){
     vm.error = response.data.message;
   });
 
-  frontend.counter()
+  frontend.counter("offers")
 .then(function onSuccess(response) {
-    vm.counter = response.data;
+    vm.coffers = response.data;
+
+  },
+
+  function onError(response) {
+  });
+  frontend.counter("companies")
+.then(function onSuccess(response) {
+    vm.ccompanies = response.data;
+
+  },
+
+  function onError(response) {
+  });
+  frontend.counter("candidates")
+.then(function onSuccess(response) {
+    vm.ccandidates = response.data;
 
   },
 
   function onError(response) {
   });
 
+  
+  
 
 
 
@@ -264,7 +277,18 @@ vm.submit = function(){
 
   vm.vote = function(applyid){
   common.vote(applyid).then(function onSuccess(resp){
-    console.log("Voteddd");
+      frontend.getapplies($routeParams.id).then(function onSuccess(response) {
+        vm.applies = response.data;
+        //console.log(vm.applies);              
+        vm.currentPage = 1; // keeps track of the current page
+        vm.pageSize = 2; // holds the number of items per page
+
+      }, function onError(response) {
+        vm.alerts.push({
+          type: "warning",
+          msg: response.data.message
+        });
+      });
     
     
     },function onError(resp){
@@ -274,6 +298,51 @@ vm.submit = function(){
     
   };
   
+  
+
+})
+
+.controller('SSindController', function(frontend, common , userAuth, $routeParams, $location, $uibModal) {
+
+  var vm = this;
+  vm.app = 0 ;
+  vm.alerts = [];
+  vm.closeAlert = function(index) {
+    vm.alerts.splice(index, 1);
+  };
+
+vm.get = function() {
+  frontend.singleoffer($routeParams.id).then(function onSuccess(response) {
+    vm.servey = response.data;
+    vm.file = "/uploads/" + vm.servey.file;
+    vm.loaded = true;
+    console.log(vm.servey);
+  },
+
+  function onError(response) {
+    vm.alerts.push({
+      type: "warning",
+      msg: response.data.message
+    });
+  });
+};
+
+  vm.get();
+
+  vm.vote = function(sid,cid){
+  common.svote(sid,cid).then(function onSuccess(resp){
+
+    vm.get();
+  
+      }, function onError(response) {
+        vm.alerts.push({
+          type: "warning",
+          msg: response.data.message
+        });
+      });
+    
+        
+  };
   
 
 })

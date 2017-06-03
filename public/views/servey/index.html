@@ -1,0 +1,44 @@
+<div class="">
+
+	<!-- PAGE -->
+	<div id="page">
+	
+		<!-- HEADER -->
+<header ng-include="'views/partials/header.html'"></header>
+
+<!-- sections -->
+<section ng-controller="SSindController as vm">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{vm.file}}">
+        </div>
+    </div>
+    <div class="row text-center" style="margin:20px;">
+        <div class="col-md-4" ng-repeat="choice in vm.servey.nested">
+            <h3>{{choice.name}}</h3>
+            
+            <h2 class="ng-binding"> {{choice.votes}} <small> votes </small></h2>
+            <div class="stars">
+                        <span class="glyphicon {{ choice.votes > 5 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ choice.votes > 15 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ choice.votes > 25 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ choice.votes > 35 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ choice.votes > 50 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                    </div>
+            <button ng-click="vm.vote(vm.servey._id,choice._id)" class="btn btn-success" >Vote now !</button>
+        </div>
+    </div>
+    
+</div>
+    
+</section>
+
+
+
+<!-- end sections -->
+    </div>
+
+<footer ng-include="'views/partials/footer.html'"></footer>
+
+</div>

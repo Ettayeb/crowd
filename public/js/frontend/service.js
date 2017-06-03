@@ -24,8 +24,8 @@ angular.module('FrontendService', []).factory('frontend', function ($http, $wind
     allserveys = function() {
       return $http.get('/api/serveys') ;
     };
-    counter = function() {
-      return $http.get('/api/counter') ;
+    counter = function(variable) {
+      return $http.get('/api/counter/'+ variable ) ;
     };
 
 

@@ -15,8 +15,8 @@
 
 	<div class="row margin-top">
 		<div class="col-md-3 whiteblock">
-			<a ng-hide="!vm.app" class="btn submit" href="/user/login" >Login to Apply</a>
-			<button ng-show="!vm.app" class="btn submit" ng-click="vm.open()" >Apply</button>
+			<a ng-if="!vm.app" class="btn submit" href="/user/login" >Login to Apply</a>
+			<button ng-if="vm.app" class="btn submit" ng-click="vm.open()" >Apply</button>
 <div class="data">
 			<h3 class="h3-margin"><span class="blue-title"> <i class="fa fa-folder-open-o icon" aria-hidden="true"></i> Offer title </span></br>  <span class="simple-text">  {{vm.offer.title}} </span></h3>
 			<h3 class="h3-margin"><span class="blue-title"> <i class="fa fa-institution"></i> Company name </span> </br> <span class="simple-text">  {{vm.offer._company.name}} </span></h3>
@@ -37,7 +37,7 @@
 		
 	</div>
 </uib-tab>
-<uib-tab index="1" heading="Reglements" class="spacing" >
+<uib-tab index="1" heading="Rules" class="spacing" >
 		<div class="row margin-top">
 			<div class="col-md-6">
 <ul><li>Do not post any personal information in your creation (name, phone number, email address, etc.)</li>
@@ -48,8 +48,7 @@
 <li>Pub-Lik&nbsp;ask you to provide written proof or a copy of all written documents supporting such authorizations and allowing Pub-Likand its customers to use the media in accordance with the General Conditions of the contest.</li>
 <li>Any media that do not comply with this regulation will be disqualified.</li>
 </ul>
-</div>
-		
+</div>	
 	</div>
 </uib-tab>
 </uib-tabset>
@@ -58,30 +57,46 @@
 <h3 class="text-center">{{vm.error}}</h3>
     </div>
 </div>
-<h4 class="text-center"> Applies List :</h4>
-<table class="table" ng-show="vm.applies">
-  <thead>
-    <tr>
-      <th>N°</th>
-      <th>User</th>
-      <th>Date</th>
-      <th>File</th>
-      <th>Vote</th>
+    <div class="row" ng-show="vm.applies">
+		<div class="well">
+        <h1 class="text-center">Applies List :</h1>
+        <div class="list-group">
+          <div class="list-group-item" ng-repeat="apply in vm.applies | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
+               <a href="/uploads/apply/{{apply.file}}" target="_blank">
+			    <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive" src="{{ apply._user.logo || 'http://placehold.it/350x250' }}" alt="placehold.it/350x250" >
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading"> {{apply._user.name}} </h4>
+                    <p class="list-group-item-text">
+						</br>
+						<span> 
+							<i class="fa fa-calendar"> </i>
+							{{apply.created_at | date:'medium'}}
+						</span>
+                    </p>
+                </div>
+				</a>
+                <div class="col-md-3 text-center">
+                    <h2> {{apply.votes}} <small> votes </small></h2>
+                    <button type="button" ng-click="vm.vote(apply._id)" class="btn btn-primary btn-lg btn-block">Vote Now!</button>
+                    <div class="stars">
+                        <span class="glyphicon {{ apply.votes > 5 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ apply.votes > 15 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ apply.votes > 25 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ apply.votes > 35 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
+                        <span class="glyphicon {{ apply.votes > 50 && 'glyphicon-star' || 'glyphicon-star-empty' }}"></span>
 
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="apply in vm.applies | start: (vm.currentPage - 1) * vm.pageSize | limitTo: vm.pageSize">
-      <th scope="row">{{$index}}</th>
-      <td><a ng-href="">{{apply._user.name}}</a></td>
-      <td>{{apply.created_at | date:'medium'}}</td>
-	  <td><a ng-href="/uploads/apply/{{apply.file}}" target="_blank">File</a></td>
-	  <td> {{apply.votes}} <a ng-click="vm.vote(apply._id)">Vote !</a></td>
+                    </div>
+                    <p> Average {{ (apply.votes / 50) * 5 }} <small> / </small> 5 </p>
+                </div>
+          </div>
+		</div>
+		</div>
+	</div>
 
-    </tr>
-  </tbody>
-
-</table>
             <pagination uib-pagination total-items="vm.applies.length" items-per-page="vm.pageSize" ng-model="vm.currentPage" max-size="10" 
                         class="pagination-sm text-center"></pagination>
 

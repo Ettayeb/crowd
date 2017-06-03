@@ -39,7 +39,8 @@
 			<a href="/offer/{{offer._id}}">
 			<div class="thumbnail" style="padding: 0">
 				<div style="padding:4px">
-					<img alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
+					<img ng-if="!vm.offer._company.logo" alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
+					<img ng-if="vm.offer._company.logo" alt="300x200" style="width: 100%" src="/uploads/logos/{{vm.offer._company.logo}}">
 			    </div>
             <div class="caption">
               <h3>{{offer.title}}</h3>
@@ -68,13 +69,13 @@
 </div>
 <div class="row index-list text-center">
 <span class="text-left list">
-+ {{vm.counter.candidates}} Candidatures
++ {{vm.ccandidates}} Candidatures
     </span>
 <span class="text-center list">
-+ {{vm.counter.offers}} Offres
++ {{vm.coffers}} Offres
 </span>
 <span class="text-right list">
-+ {{vm.counter.companies}} Entreprises
++ {{vm.ccompanies}} Entreprises
     </span>
 </div>
 

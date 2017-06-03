@@ -6,11 +6,16 @@ angular.module('CommonService', []).factory('common', function($http, $window, $
     return $http.get('/api/vote/' + id);
   };
 
+  svote = function(sid , cid) {
+    return $http.get('/api/vote/' + sid + '/' + cid);
+  };
+
 
 
   return {
     countries: countries,
-    vote : vote
+    vote : vote,
+    svote : svote
   };
 });
 // stopped here

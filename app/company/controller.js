@@ -200,19 +200,18 @@ var User = require('../user/User');
 
 module.exports.counter =  function (req, res) {
 
-    var counter = {offers : 0 , companies : 0 , candidates : 0};
+if (req.params.variable === "offers")
     Offer.count({}, function( err, count){
-    counter.offers = count;
+    return res.status(200).json(count);
 });
+if (req.params.variable === "companies")
     Company.count({}, function( err, count){
-    counter.companies = count;
+    return res.status(200).json(count);
 });
+if (req.params.variable === "candidates")
     User.count({}, function( err, count){
-    counter.candidates = count;
+    return res.status(200).json(count);
 });
-      console.log(counter);
-
-return res.status(200).json(counter);
 
 };
 
@@ -454,3 +453,33 @@ module.exports.updateoffer = function(req, res ) {
 });
 
 };
+
+module.exports.vote = function(req , res){
+  if(req.params.sid){
+    Offer.findById(req.params.sid)
+    .exec(function(err , servey){
+            if(err)
+      return res.status(406).json({
+      "message" : "Contact the webmaster"});
+
+      for (i = 0 ; i < servey.nested.length;i++){
+      if (servey.nested[i]._id == req.params.cid) {
+        servey.nested[i].votes = servey.nested[i].votes + 1;  
+      }
+      }
+      servey.save(function(err){
+        if (err)
+              return res.status(406).json({
+              "message" : "Contact the webmaster"});
+
+              return res.status(200).json({
+              "message" : "Done"});
+
+      });
+  
+  });
+  }
+  
+  
+};
+
